@@ -30,6 +30,16 @@ Dive Engine should build out of the box with Visual Studio 2012, as all dependen
 Building for systems other than windows will require rebuilding the dependencies and building both
 SFML and CSFML.
 
+Debug vs Release Builds
+-----------------------
+
+There is a limited amount of conditional compilation based on debug and release constants, to change behaviour
+during debugging.
+
+The most obvious is exception handling. If an exception is thrown and not caught until the main method, the engine
+can behave in two different ways. In debug mode, the exception is left alone, so that the Visual Studio debugger
+can detect it. In release mode, the exception is caught, logged, and the program exits.
+
 Debugging
 =========
 
@@ -42,16 +52,6 @@ Running
 
 The engine must be run with the current working directory set as the Dist folder. Other than that, it should
 just run.
-
-Differences between debug and release builds
-============================================
-
-There is a limited amount of conditional compilation based on debug and release constants, to change behaviour
-during debugging.
-
-The most obvious is exception handling. If an exception is thrown and not caught until the main method, the engine
-can behave in two different ways. In debug mode, the exception is left alone, so that the Visual Studio debugger
-can detect it. In release mode, the exception is caught, logged, and the program exits.
 
 Logging
 =======
