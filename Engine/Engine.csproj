@@ -128,12 +128,12 @@
     <Compile Include="Engine\EngineScriptInterface.cs" />
     <Compile Include="Entity\EntityCommands.cs" />
     <Compile Include="Script\Attributes\CommandDef.cs" />
-    <Compile Include="Script\BasicCommandArgument.cs" />
+    <Compile Include="Script\Arguments\BasicCommandArgument.cs" />
     <Compile Include="Script\CommandInfo.cs" />
     <Compile Include="Script\CommandList.cs" />
     <Compile Include="Script\ConVars\DelegateConVar.cs" />
-    <Compile Include="Script\EntityCommandArgument.cs" />
-    <Compile Include="Script\ICommandArgument.cs" />
+    <Compile Include="Script\Arguments\EntityCommandArgument.cs" />
+    <Compile Include="Script\Arguments\ICommandArgument.cs" />
     <Compile Include="Script\ConsoleManager.cs" />
     <Compile Include="Script\ExecutableCommand.cs" />
     <Compile Include="Script\ConVars\IConVar.cs" />
@@ -148,7 +148,7 @@
     <Compile Include="Script\ScriptUtilities.cs" />
     <Compile Include="Script\ConVars\BasicConVar.cs" />
     <Compile Include="Script\UtilityCommands.cs" />
-    <Compile Include="Script\VariableCommandArgument.cs" />
+    <Compile Include="Script\Arguments\VariableCommandArgument.cs" />
     <Compile Include="Engine\DebugHandler.cs" />
     <Compile Include="Engine\Extensions\ColorExtensions.cs" />
     <Compile Include="Engine\Extensions\MapExtensions.cs" />
@@ -171,7 +171,7 @@
     <Compile Include="Entity\IComponent.cs" />
     <Compile Include="Entity\ITemplate.cs" />
     <Compile Include="Entity\PropertyException.cs" />
-    <Compile Include="Engine\Engine.cs" />
+    <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="Engine\EngineLayers.cs" />
     <Compile Include="Engine\GameStateManager.cs" />
     <Compile Include="Engine\IGameState.cs" />

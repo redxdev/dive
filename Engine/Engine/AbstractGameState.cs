@@ -11,20 +11,6 @@
     /// </summary>
     public abstract class AbstractGameState : IGameState
     {
-        private Engine engine = null;
-
-        /// <summary>
-        /// Gets the <see cref="Engine"/> instance.
-        /// </summary>
-        /// <value>The <see cref="Engine"/> instance.</value>
-        public Engine Engine
-        {
-            get
-            {
-                return this.engine;
-            }
-        }
-
         /// <summary>
         /// Gets a value indicating whether this <see cref="IGameState"/> is active.
         /// </summary>
@@ -33,7 +19,7 @@
         {
             get
             {
-                return this.Engine.StateManager.IsStateActive(this);
+                return GameEngine.Instance.StateManager.IsStateActive(this);
             }
         }
 
@@ -41,16 +27,6 @@
         /// Called when the <see cref="IGameState" /> is first added to the <see cref="GameStateManager" />.
         /// </summary>
         /// <param name="engine">The engine.</param>
-        public void Initialize(Engine engine)
-        {
-            this.engine = engine;
-
-            this.Initialize();
-        }
-
-        /// <summary>
-        /// Called when the game state should be initialized.
-        /// </summary>
         public virtual void Initialize()
         {
         }

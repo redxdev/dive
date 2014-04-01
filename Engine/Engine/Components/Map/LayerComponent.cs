@@ -55,7 +55,7 @@
         {
             foreach (Sprite tile in this.Tiles)
             {
-                this.ParentEntity.Engine.AddToRenderQueue(tile, this.DrawLayer);
+                GameEngine.Instance.AddToRenderQueue(tile, this.DrawLayer);
             }
         }
     }

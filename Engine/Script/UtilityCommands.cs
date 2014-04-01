@@ -5,6 +5,8 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Dive.Engine;
+    using Dive.Script.Arguments;
     using Dive.Script.Attributes;
     using Dive.Script.ConVars;
 
@@ -112,7 +114,7 @@
                 throw new ArgumentException(string.Format("Wrong number of arguments for clear (expected 0, got {0})", cmd.Arguments.Count));
             }
 
-            console.GameEngine.ConsoleViewer.Clear();
+            GameEngine.Instance.ConsoleViewer.Clear();
         }
 
         /// <summary>

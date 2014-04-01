@@ -37,8 +37,6 @@ namespace Dive.Engine
         private int currentPos = 0;
         private string currentInput = string.Empty;
 
-        private Engine engine = null;
-
         private double nextBlink = BlinkRate;
         private bool blinkOn = true;
 
@@ -46,10 +44,9 @@ namespace Dive.Engine
         /// Initializes a new instance of the <see cref="ConsoleViewer"/> class.
         /// </summary>
         /// <param name="engine">The engine.</param>
-        public ConsoleViewer(Engine engine)
+        public ConsoleViewer()
         {
-            this.engine = engine;
-            this.consoleFont = this.engine.AssetManager.Load<Font>("content/fonts/DroidSansMono.ttf");
+            this.consoleFont = GameEngine.Instance.AssetManager.Load<Font>("content/fonts/DroidSansMono.ttf");
             this.Enabled = false;
         }
 
@@ -236,7 +233,7 @@ namespace Dive.Engine
         /// <param name="color">The color.</param>
         public void Print(string input, Color color)
         {
-            int maxLineLength = (int)(this.engine.Window.Size.X / 8.1f);
+            int maxLineLength = (int)(GameEngine.Instance.Window.Size.X / 8.1f);
 
             if (input.Length > maxLineLength)
             {
@@ -296,7 +293,7 @@ namespace Dive.Engine
             try
             {
                 CommandList commands = ScriptUtilities.ParseString(input);
-                this.engine.Console.Execute(commands);
+                GameEngine.Instance.Console.Execute(commands);
             }
             catch (Exception e)
             {
@@ -309,7 +306,7 @@ namespace Dive.Engine
         /// </summary>
         public void Draw()
         {
-            this.nextBlink -= this.engine.Delta;
+            this.nextBlink -= GameEngine.Instance.Delta;
             if (this.nextBlink <= 0)
             {
                 this.blinkOn = !this.blinkOn;
@@ -330,17 +327,17 @@ namespace Dive.Engine
                 this.currentPos = 0;
             }
 
-            RectangleShape background = new RectangleShape(new Vector2f(this.engine.Window.Size.X, (this.engine.Window.Size.Y / 3) + 20));
+            RectangleShape background = new RectangleShape(new Vector2f(GameEngine.Instance.Window.Size.X, (GameEngine.Instance.Window.Size.Y / 3) + 20));
             background.OutlineColor = new Color(200, 200, 200, 150);
             background.FillColor = new Color(70, 70, 70, 150);
-            background.Position = this.engine.Window.MapPixelToCoords(new Vector2i(0, (int)((this.engine.Window.Size.Y / 3) * 2) - 20));
+            background.Position = GameEngine.Instance.Window.MapPixelToCoords(new Vector2i(0, (int)((GameEngine.Instance.Window.Size.Y / 3) * 2) - 20));
             background.OutlineThickness = 3f;
-            this.engine.Window.Draw(background);
+            GameEngine.Instance.Window.Draw(background);
 
             Text inputLine = new Text("> " + this.currentInput, this.consoleFont, 14);
             inputLine.Color = Color.White;
-            inputLine.Position = this.engine.Window.MapPixelToCoords(new Vector2i(10, (int)this.engine.Window.Size.Y - 24));
-            this.engine.Window.Draw(inputLine);
+            inputLine.Position = GameEngine.Instance.Window.MapPixelToCoords(new Vector2i(10, (int)GameEngine.Instance.Window.Size.Y - 24));
+            GameEngine.Instance.Window.Draw(inputLine);
 
             LinkedListNode<ConsoleMessage> node = this.consoleBuffer.First;
             for (int i = 0; i < this.bufferPos; i++)
@@ -354,13 +351,13 @@ namespace Dive.Engine
             }
 
             int lineCount = 1;
-            int maxLineCount = (int)(this.engine.Window.Size.Y / 3) / 14;
+            int maxLineCount = (int)(GameEngine.Instance.Window.Size.Y / 3) / 14;
             while (node != null && lineCount <= maxLineCount)
             {
                 Text outputLine = new Text(node.Value.Message, this.consoleFont, 14);
                 outputLine.Color = node.Value.PrintColor;
-                outputLine.Position = this.engine.Window.MapPixelToCoords(new Vector2i(10, (int)(this.engine.Window.Size.Y - 24) - (lineCount * 14)));
-                this.engine.Window.Draw(outputLine);
+                outputLine.Position = GameEngine.Instance.Window.MapPixelToCoords(new Vector2i(10, (int)(GameEngine.Instance.Window.Size.Y - 24) - (lineCount * 14)));
+                GameEngine.Instance.Window.Draw(outputLine);
 
                 node = node.Next;
                 lineCount++;
@@ -370,8 +367,8 @@ namespace Dive.Engine
             {
                 Text pipeText = new Text(new string(' ', this.currentPos + 1) + '|', this.consoleFont, 14);
                 pipeText.Color = Color.White;
-                pipeText.Position = this.engine.Window.MapPixelToCoords(new Vector2i(14, (int)this.engine.Window.Size.Y - 24));
-                this.engine.Window.Draw(pipeText);
+                pipeText.Position = GameEngine.Instance.Window.MapPixelToCoords(new Vector2i(14, (int)GameEngine.Instance.Window.Size.Y - 24));
+                GameEngine.Instance.Window.Draw(pipeText);
             }
         }
 

@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Dive.Engine;
     using Dive.Script;
     using Dive.Script.Attributes;
 
@@ -29,7 +30,7 @@
                 throw new ArgumentException(string.Format("Wrong number of arguments for entity_list (expected 0, got {0})", cmd.Arguments.Count));
             }
 
-            foreach (Entity entity in console.GameEngine.EntityManager.Entities.Values)
+            foreach (Entity entity in GameEngine.Instance.EntityManager.Entities.Values)
             {
                 ConsoleManager.ConsoleLog.Info(entity.ToString());
             }
@@ -55,7 +56,7 @@
                 name = cmd.Arguments[0].Value;
             }
 
-            Entity entity = console.GameEngine.EntityManager.CreateEntity(name);
+            Entity entity = GameEngine.Instance.EntityManager.CreateEntity(name);
             ConsoleManager.ConsoleLog.Info("Created entity " + entity.Id);
         }
 
@@ -76,11 +77,11 @@
             Entity entity = null;
             if (cmd.Arguments.Count == 1)
             {
-                entity = console.GameEngine.EntityManager.CreateEntityFromTemplate(cmd.Arguments[0].Value);
+                entity = GameEngine.Instance.EntityManager.CreateEntityFromTemplate(cmd.Arguments[0].Value);
             }
             else
             {
-                entity = console.GameEngine.EntityManager.CreateEntityFromTemplateWithName(cmd.Arguments[0].Value, cmd.Arguments[1].Value);
+                entity = GameEngine.Instance.EntityManager.CreateEntityFromTemplateWithName(cmd.Arguments[0].Value, cmd.Arguments[1].Value);
             }
 
             ConsoleManager.ConsoleLog.Info("Created entity " + entity.Id);
@@ -100,7 +101,7 @@
                 throw new ArgumentException(string.Format("Wrong number of arguments for entity_template_list (expected 0, got {0})", cmd.Arguments.Count));
             }
 
-            foreach (string template in console.GameEngine.EntityManager.TemplateRegistry.Keys)
+            foreach (string template in GameEngine.Instance.EntityManager.TemplateRegistry.Keys)
             {
                 ConsoleManager.ConsoleLog.Info(template);
             }
@@ -123,13 +124,13 @@
 
             long id = long.Parse(cmd.Arguments[0].Value);
 
-            Entity entity = console.GameEngine.EntityManager.GetEntityById(id);
+            Entity entity = GameEngine.Instance.EntityManager.GetEntityById(id);
             if (entity == null)
             {
                 throw new NullReferenceException(string.Format("Unknown entity id \"{0}\"", id));
             }
 
-            console.GameEngine.EntityManager.RemoveEntity(entity);
+            GameEngine.Instance.EntityManager.RemoveEntity(entity);
         }
 
         /// <summary>
@@ -149,13 +150,13 @@
 
             long id = long.Parse(cmd.Arguments[0].Value);
 
-            Entity entity = console.GameEngine.EntityManager.GetEntityById(id);
+            Entity entity = GameEngine.Instance.EntityManager.GetEntityById(id);
             if (entity == null)
             {
                 throw new NullReferenceException(string.Format("Unknown entity id \"{0}\"", id));
             }
 
-            IComponent component = console.GameEngine.EntityManager.CreateComponent(cmd.Arguments[1].Value);
+            IComponent component = GameEngine.Instance.EntityManager.CreateComponent(cmd.Arguments[1].Value);
             entity.AddComponent(component.GetType(), component);
         }
 
@@ -176,13 +177,13 @@
 
             long id = long.Parse(cmd.Arguments[0].Value);
 
-            Entity entity = console.GameEngine.EntityManager.GetEntityById(id);
+            Entity entity = GameEngine.Instance.EntityManager.GetEntityById(id);
             if (entity == null)
             {
                 throw new NullReferenceException(string.Format("Unknown entity id \"{0}\"", id));
             }
 
-            entity.RemoveComponent(console.GameEngine.EntityManager.GetComponentType(cmd.Arguments[1].Value));
+            entity.RemoveComponent(GameEngine.Instance.EntityManager.GetComponentType(cmd.Arguments[1].Value));
         }
 
         /// <summary>
@@ -199,7 +200,7 @@
                 throw new ArgumentException(string.Format("Wrong number of arguments for entity_component_list (expected 0, got {0})", cmd.Arguments.Count));
             }
 
-            foreach (string component in console.GameEngine.EntityManager.ComponentRegistry.Keys.OrderBy(i => i))
+            foreach (string component in GameEngine.Instance.EntityManager.ComponentRegistry.Keys.OrderBy(i => i))
             {
                 ConsoleManager.ConsoleLog.Info(component);
             }
@@ -222,7 +223,7 @@
 
             long id = long.Parse(cmd.Arguments[0].Value);
 
-            Entity entity = console.GameEngine.EntityManager.GetEntityById(id);
+            Entity entity = GameEngine.Instance.EntityManager.GetEntityById(id);
             if (entity == null)
             {
                 throw new NullReferenceException(string.Format("Unknown entity id \"{0}\"", id));
@@ -248,7 +249,7 @@
             long id = long.Parse(cmd.Arguments[0].Value);
             string name = cmd.Arguments[1].Value;
 
-            Entity entity = console.GameEngine.EntityManager.GetEntityById(id);
+            Entity entity = GameEngine.Instance.EntityManager.GetEntityById(id);
             if (entity == null)
             {
                 throw new NullReferenceException(string.Format("Unknown entity id \"{0}\"", id));
@@ -274,7 +275,7 @@
 
             long id = long.Parse(cmd.Arguments[0].Value);
 
-            Entity entity = console.GameEngine.EntityManager.GetEntityById(id);
+            Entity entity = GameEngine.Instance.EntityManager.GetEntityById(id);
             if (entity == null)
             {
                 throw new NullReferenceException(string.Format("Unknown entity id \"{0}\"", id));
@@ -300,7 +301,7 @@
 
             long id = long.Parse(cmd.Arguments[0].Value);
 
-            Entity entity = console.GameEngine.EntityManager.GetEntityById(id);
+            Entity entity = GameEngine.Instance.EntityManager.GetEntityById(id);
             if (entity == null)
             {
                 throw new NullReferenceException(string.Format("Unknown entity id \"{0}\"", id));
@@ -326,7 +327,7 @@
 
             long id = long.Parse(cmd.Arguments[0].Value);
 
-            Entity entity = console.GameEngine.EntityManager.GetEntityById(id);
+            Entity entity = GameEngine.Instance.EntityManager.GetEntityById(id);
             if (entity == null)
             {
                 throw new NullReferenceException(string.Format("Unknown entity id \"{0}\"", id));
@@ -391,7 +392,7 @@
 
             long id = long.Parse(cmd.Arguments[0].Value);
 
-            Entity entity = console.GameEngine.EntityManager.GetEntityById(id);
+            Entity entity = GameEngine.Instance.EntityManager.GetEntityById(id);
             if (entity == null)
             {
                 throw new NullReferenceException(string.Format("Unknown entity id \"{0}\"", id));

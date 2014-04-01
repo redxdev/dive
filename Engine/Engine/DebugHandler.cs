@@ -59,17 +59,17 @@
         /// Initializes this debug handler.
         /// </summary>
         /// <param name="engine">The engine.</param>
-        public virtual void Initialize(Engine engine)
+        public virtual void Initialize()
         {
             bool drawPhysics = false;
-            bool.TryParse(engine.Configuration["debug"]["draw-physics"], out drawPhysics);
+            bool.TryParse(GameEngine.Instance.Configuration["debug"]["draw-physics"], out drawPhysics);
             this.DrawPhysics = drawPhysics;
 
             bool drawOverlay = false;
-            bool.TryParse(engine.Configuration["debug"]["draw-overlay"], out drawOverlay);
+            bool.TryParse(GameEngine.Instance.Configuration["debug"]["draw-overlay"], out drawOverlay);
             this.DrawOverlay = drawOverlay;
 
-            this.debugText = new Text("INIT", engine.AssetManager.Load<Font>("content/fonts/DroidSansMono.ttf"), 14);
+            this.debugText = new Text("INIT", GameEngine.Instance.AssetManager.Load<Font>("content/fonts/DroidSansMono.ttf"), 14);
             this.debugText.Color = Color.White;
         }
 
@@ -78,11 +78,11 @@
         /// all objects on the screen. This should not use engine drawing methods, and instead directly draw to the engine.Window object.
         /// </summary>
         /// <param name="engine">The engine.</param>
-        public virtual void Draw(Engine engine)
+        public virtual void Draw()
         {
             if (this.DrawPhysics)
             {
-                foreach (Body body in engine.PhysicsWorld.BodyList)
+                foreach (Body body in GameEngine.Instance.PhysicsWorld.BodyList)
                 {
                     SFML.Window.Vector2f pos = VectorExtensions.FromXnaVector(ConvertUnits.ToDisplayUnits(body.Position));
 
@@ -106,7 +106,7 @@
                                     convex.Position = pos;
                                     convex.Rotation = (float)(body.Rotation * (180 / Math.PI));
 
-                                    engine.Window.Draw(convex);
+                                    GameEngine.Instance.Window.Draw(convex);
 
                                     break;
                                 }
@@ -123,7 +123,7 @@
                                                 new Color(255, 0, 0, 255)));
                                     }
 
-                                    engine.Window.Draw(vertices);
+                                    GameEngine.Instance.Window.Draw(vertices);
 
                                     break;
                                 }
@@ -136,7 +136,7 @@
             {
                 uint active = 0;
                 uint inactive = 0;
-                foreach (Entity ent in engine.EntityManager.Entities.Values)
+                foreach (Entity ent in GameEngine.Instance.EntityManager.Entities.Values)
                 {
                     if (ent.IsActive)
                     {
@@ -148,10 +148,10 @@
                     }
                 }
 
-                this.avgFps += engine.FPS;
+                this.avgFps += GameEngine.Instance.FPS;
                 this.avgFps /= 2;
 
-                this.avgTps += engine.TPS;
+                this.avgTps += GameEngine.Instance.TPS;
                 this.avgTps /= 2;
 
                 if (this.timeToUpdate <= 0)
@@ -161,7 +161,7 @@
                     this.timeToUpdate = 0.25f;
                 }
 
-                this.timeToUpdate -= (float)engine.Delta;
+                this.timeToUpdate -= (float)GameEngine.Instance.Delta;
 
                 this.debugText.DisplayedString = string.Format(
                     "FPS: {0:0.0}  Timer: {1:0.000000}\n" +
@@ -172,22 +172,22 @@
                     "Inactive: {11}\n" +
                     "Bodies: {12}\n",
                     this.displayFps,
-                    engine.Timer.Elapsed.TotalSeconds,
+                    GameEngine.Instance.Timer.Elapsed.TotalSeconds,
                     this.displayTps,
-                    engine.Scheduler.Tasks.Count,
-                    engine.FrameSkip,
-                    engine.Window.GetView().Size.X,
-                    engine.Window.GetView().Size.Y,
-                    engine.AssetManager.GetAssetCount(),
-                    engine.Window.Size.X,
-                    engine.Window.Size.Y,
+                    GameEngine.Instance.Scheduler.Tasks.Count,
+                    GameEngine.Instance.FrameSkip,
+                    GameEngine.Instance.Window.GetView().Size.X,
+                    GameEngine.Instance.Window.GetView().Size.Y,
+                    GameEngine.Instance.AssetManager.GetAssetCount(),
+                    GameEngine.Instance.Window.Size.X,
+                    GameEngine.Instance.Window.Size.Y,
                     active,
                     inactive,
-                    engine.PhysicsWorld.BodyList.Count);
+                    GameEngine.Instance.PhysicsWorld.BodyList.Count);
 
-                this.debugText.Position = engine.Window.MapPixelToCoords(new SFML.Window.Vector2i(10, 10));
-                this.debugText.Rotation = -engine.Window.GetView().Rotation;
-                engine.Window.Draw(this.debugText);
+                this.debugText.Position = GameEngine.Instance.Window.MapPixelToCoords(new SFML.Window.Vector2i(10, 10));
+                this.debugText.Rotation = -GameEngine.Instance.Window.GetView().Rotation;
+                GameEngine.Instance.Window.Draw(this.debugText);
             }
         }
     }

@@ -12,15 +12,6 @@
     public interface IGameState
     {
         /// <summary>
-        /// Gets the <see cref="Engine"/> instance.
-        /// </summary>
-        /// <value>The <see cref="Engine"/> instance.</value>
-        Engine Engine
-        {
-            get;
-        }
-
-        /// <summary>
         /// Gets a value indicating whether this <see cref="IGameState"/> is active.
         /// </summary>
         /// <value>The value indicating whether this <see cref="IGameState"/> is active.</value>
@@ -33,7 +24,7 @@
         /// Called when the <see cref="IGameState" /> is first added to the <see cref="GameStateManager" />.
         /// </summary>
         /// <param name="engine">The engine.</param>
-        void Initialize(Engine engine);
+        void Initialize();
 
         /// <summary>
         /// Called when this state is entered.

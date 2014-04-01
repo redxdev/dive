@@ -19,16 +19,13 @@
 
         private IGameState currentState = null;
 
-        private Engine engine = null;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="GameStateManager"/> class.
         /// </summary>
         /// <param name="engine">The engine.</param>
         /// <param name="autoAddGameStates">Whether to automatically add <see cref="IGameState"/>s with the <see cref="Dive.Engine.Attributes.GameState"/> attribute.</param>
-        public GameStateManager(Engine engine, bool autoAddGameStates = true)
+        public GameStateManager(bool autoAddGameStates = true)
         {
-            this.engine = engine;
             this.gameStates = new Dictionary<Type, IGameState>();
 
             if (autoAddGameStates)
@@ -118,13 +115,13 @@
         /// </summary>
         public void Initialize()
         {
-            this.engine.Input.ActionEvent += this.OnInputAction;
+            GameEngine.Instance.Input.ActionEvent += this.OnInputAction;
 
             Log.Debug("Initializing game states");
 
             foreach (KeyValuePair<Type, IGameState> state in this.GameStates)
             {
-                state.Value.Initialize(this.engine);
+                state.Value.Initialize();
             }
 
             Type startupType = null;

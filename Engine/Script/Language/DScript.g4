@@ -3,6 +3,8 @@ grammar DScript;
 @parser::header
 {
 #pragma warning disable 3021
+
+using Dive.Script.Arguments;
 }
 
 @parser::members

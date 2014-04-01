@@ -7,6 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using Dive.Engine;
+    using Dive.Script.Arguments;
     using Dive.Script.ConVars;
     using log4net;
 
@@ -34,9 +35,8 @@
         /// </summary>
         /// <param name="engine">The engine.</param>
         /// <param name="autoLoad">If set to <c>true</c> [automatic load].</param>
-        public ConsoleManager(Engine engine, bool autoLoad = true)
+        public ConsoleManager(bool autoLoad = true)
         {
-            this.GameEngine = engine;
             this.Variables = new Dictionary<string, IConVar>();
             this.Commands = new Dictionary<string, CommandInfo>();
             this.SetupVariables();
@@ -96,18 +96,6 @@
         {
             get;
             protected set;
-        }
-
-        /// <summary>
-        /// Gets or sets the game engine.
-        /// </summary>
-        /// <value>
-        /// The game engine.
-        /// </value>
-        public Engine GameEngine
-        {
-            get;
-            set;
         }
 
         /// <summary>
@@ -229,11 +217,6 @@
         /// </exception>
         public void Execute(ExecutableCommand command)
         {
-            foreach (ICommandArgument arg in command.Arguments)
-            {
-                arg.Console = this;
-            }
-
             CommandInfo info = null;
 
             try
@@ -258,12 +241,12 @@
                         throw new ArgumentException(string.Format("Wrong number of arguments for <internal-get-set> (expected 0 or 1, got {0})", command.Arguments.Count));
 
                     case 0:
-                        command.Arguments.Insert(0, new BasicCommandArgument() { RawValue = command.Name, Console = this });
+                        command.Arguments.Insert(0, new BasicCommandArgument() { RawValue = command.Name });
                         command.Name = "get";
                         break;
 
                     case 1:
-                        command.Arguments.Insert(0, new BasicCommandArgument() { RawValue = command.Name, Console = this });
+                        command.Arguments.Insert(0, new BasicCommandArgument() { RawValue = command.Name });
                         command.Name = "set";
                         break;
                 }

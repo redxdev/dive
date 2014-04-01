@@ -36,7 +36,7 @@
         /// <param name="map">The map to import.</param>
         /// <returns>The list of imported entities.</returns>
         /// <exception cref="Dive.Assets.Map.MapLoadException">Unknown layer type  + layer.GetType().FullName.</exception>
-        public static Entity[] ImportMap(this Engine engine, Map map)
+        public static Entity[] ImportMap(this GameEngine engine, Map map)
         {
             Log.Debug("Map.Version = " + map.Version);
             Log.Debug("Map.Orientation = " + map.Orientation);

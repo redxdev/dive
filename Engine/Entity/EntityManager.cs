@@ -32,10 +32,8 @@
         /// Initializes a new instance of the <see cref="EntityManager"/> class.
         /// </summary>
         /// <param name="engine">The engine.</param>
-        public EntityManager(Engine engine)
+        public EntityManager()
         {
-            this.Engine = engine;
-
             this.entities = new SortedDictionary<long, Entity>();
             this.entityNames = new Dictionary<string, Entity>();
             this.componentRegistry = new Dictionary<string, Type>();
@@ -69,18 +67,6 @@
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Gets the engine.
-        /// </summary>
-        /// <value>
-        /// The engine.
-        /// </value>
-        public Engine Engine
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -154,7 +140,7 @@
                 throw new ArgumentException("An entity with the specified name already exists");
             }
 
-            Entity entity = new Entity(this.nextId++, name, this.Engine, this);
+            Entity entity = new Entity(this.nextId++, name);
             this.entities.Add(entity.Id, entity);
             if (!string.IsNullOrWhiteSpace(name))
             {
@@ -209,7 +195,7 @@
             }
 
             Entity entity = this.CreateEntity();
-            return template.BuildEntity(this, entity, args);
+            return template.BuildEntity(entity, args);
         }
 
         /// <summary>
@@ -231,7 +217,7 @@
             }
 
             Entity entity = this.CreateEntity(name);
-            return template.BuildEntity(this, entity, args);
+            return template.BuildEntity(entity, args);
         }
 
         /// <summary>

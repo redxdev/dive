@@ -7,6 +7,7 @@
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using Dive.Engine;
     using log4net;
     using log4net.Config;
 
@@ -17,7 +18,7 @@
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Program));
 
-        private static Engine.Engine engine = null;
+        private static GameEngine engine = null;
 
         /// <summary>
         /// Main entry point.
@@ -61,12 +62,10 @@
             Console.CancelKeyPress += new ConsoleCancelEventHandler(CancelHandler);
             Log.Debug("Registered ConsoleCancelEvent handler");
 
-            engine = new Engine.Engine();
+            engine = new GameEngine();
 
-#if !DEBUG
             try
             {
-#endif
                 if (engine.Run())
                 {
                     Log.Info("Session ended normally.");
@@ -79,8 +78,8 @@
                     Console.ReadKey();
 #endif
                 }
-#if !DEBUG
             }
+#if !DEBUG
             catch (Exception e)
             {
                 Log.Fatal("Session ended with exception.", e);
@@ -88,6 +87,11 @@
                 Console.ReadKey();
             }
 #endif
+            finally
+            {
+                GameEngine.CleanupInstance();
+                engine = null;
+            }
         }
 
         /// <summary>

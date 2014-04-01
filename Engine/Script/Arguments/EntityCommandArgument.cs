@@ -1,10 +1,11 @@
-﻿namespace Dive.Script
+﻿namespace Dive.Script.Arguments
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Dive.Engine;
     using Dive.Entity;
     using log4net;
 
@@ -26,7 +27,7 @@
         {
             get
             {
-                Entity entity = this.Console.GameEngine.EntityManager.GetEntityByName(this.RawValue);
+                Entity entity = GameEngine.Instance.EntityManager.GetEntityByName(this.RawValue);
                 if (entity == null)
                 {
                     throw new ArgumentException(string.Format("Unknown entity \"{0}\"", this.RawValue));

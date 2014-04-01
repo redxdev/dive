@@ -28,7 +28,7 @@
                 throw new ArgumentException(string.Format("Wrong number of arguments for exit (expected 0, got {0})", cmd.Arguments.Count));
             }
 
-            console.GameEngine.Stop();
+            GameEngine.Instance.Stop();
         }
 
         /// <summary>
@@ -63,7 +63,7 @@
                 throw new ArgumentException(string.Format("Type \"{0}\" is not assignable to IGameState", typeName));
             }
 
-            console.GameEngine.StateManager.ChangeState(type);
+            GameEngine.Instance.StateManager.ChangeState(type);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@
                     }
             };
 
-            console.GameEngine.Scheduler.ScheduleTask(task);
+            GameEngine.Instance.Scheduler.ScheduleTask(task);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@
                 throw new ArgumentException(string.Format("Wrong number of arguments for cleartasks (expected 0, got {0})", cmd.Arguments.Count));
             }
 
-            console.GameEngine.Scheduler.Tasks.Clear();
+            GameEngine.Instance.Scheduler.Tasks.Clear();
         }
 
         /// <summary>
@@ -147,7 +147,7 @@
 
             string filename = cmd.Arguments[0].Value;
 
-            CommandList commands = console.GameEngine.AssetManager.Load<CommandList>(filename);
+            CommandList commands = GameEngine.Instance.AssetManager.Load<CommandList>(filename);
             console.Execute(commands);
         }
 
@@ -165,7 +165,7 @@
                 throw new ArgumentException(string.Format("Wrong number of arguments for capture (expected 1, got {0})", cmd.Arguments.Count));
             }
 
-            SFML.Graphics.Image image = console.GameEngine.Window.Capture();
+            SFML.Graphics.Image image = GameEngine.Instance.Window.Capture();
             if (!image.SaveToFile(cmd.Arguments[0].Value))
             {
                 ConsoleManager.ConsoleLog.Warn(string.Format("Unable to save screen capture to {0}", cmd.Arguments[0].Value));

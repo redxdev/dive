@@ -47,7 +47,7 @@
         {
             this.transform = new ComponentLookup<TransformComponent>(this.ParentEntity);
 
-            this.Body = BodyFactory.CreateBody(this.ParentEntity.Engine.PhysicsWorld, this);
+            this.Body = BodyFactory.CreateBody(GameEngine.Instance.PhysicsWorld, this);
             this.Body.BodyType = BodyType.Static;
         }
 
@@ -66,7 +66,7 @@
         /// </summary>
         public override void Clear()
         {
-            this.ParentEntity.Engine.PhysicsWorld.RemoveBody(this.Body);
+            GameEngine.Instance.PhysicsWorld.RemoveBody(this.Body);
         }
 
         /// <summary>

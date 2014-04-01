@@ -26,19 +26,6 @@
         /// </summary>
         public ScriptingConsoleAppender()
         {
-            this.ConsoleViewer = null;
-        }
-
-        /// <summary>
-        /// Gets or sets the console viewer.
-        /// </summary>
-        /// <value>
-        /// The console viewer.
-        /// </value>
-        public ConsoleViewer ConsoleViewer
-        {
-            get;
-            set;
         }
 
         /// <summary>
@@ -47,7 +34,7 @@
         /// <param name="loggingEvent">The logging event.</param>
         protected override void Append(LoggingEvent loggingEvent)
         {
-            if (this.ConsoleViewer != null)
+            if (GameEngine.Instance != null && GameEngine.Instance.ConsoleViewer != null)
             {
                 Color color = this.infoColor;
                 switch (loggingEvent.Level.Name)
@@ -82,7 +69,7 @@
                 {
                     if (!string.IsNullOrWhiteSpace(line))
                     {
-                        this.ConsoleViewer.Print(line, color);
+                        GameEngine.Instance.ConsoleViewer.Print(line, color);
                     }
                 }
 
@@ -91,7 +78,7 @@
                 {
                     if (!string.IsNullOrWhiteSpace(line))
                     {
-                        this.ConsoleViewer.Print(line, color);
+                        GameEngine.Instance.ConsoleViewer.Print(line, color);
                     }
                 }
             }

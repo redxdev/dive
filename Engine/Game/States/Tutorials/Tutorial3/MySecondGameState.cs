@@ -25,17 +25,17 @@
         /// <param name="previous">Previous game state.</param>
         public override void Start(IGameState previous)
         {
-            Entity myEntity = this.Engine.EntityManager.CreateEntity(); // Create the entity
+            Entity myEntity = GameEngine.Instance.EntityManager.CreateEntity(); // Create the entity
             TransformComponent transform = myEntity.AddComponent<TransformComponent>(); // Add the components
             SpriteComponent sprite = myEntity.AddComponent<SpriteComponent>();
 
-            Texture myTexture = this.Engine.AssetManager.Load<Texture>("content/textures/test.png"); // Load a texture
+            Texture myTexture = GameEngine.Instance.AssetManager.Load<Texture>("content/textures/test.png"); // Load a texture
             sprite.Drawable.Texture = myTexture; // Set the texture
 
             // Set the position
             transform.SetPosition(
-                (this.Engine.Window.Size.X / 2) - (myTexture.Size.X / 2) + 100,
-                (this.Engine.Window.Size.Y / 2) - (myTexture.Size.Y / 2));
+                (GameEngine.Instance.Window.Size.X / 2) - (myTexture.Size.X / 2) + 100,
+                (GameEngine.Instance.Window.Size.Y / 2) - (myTexture.Size.Y / 2));
         }
 
         /// <summary>
@@ -44,7 +44,7 @@
         /// <param name="next">Next game state.</param>
         public override void Stop(IGameState next)
         {
-            this.Engine.EntityManager.Clear();
+            GameEngine.Instance.EntityManager.Clear();
         }
     }
 }

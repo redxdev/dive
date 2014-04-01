@@ -27,7 +27,7 @@
         /// <returns>
         /// The same entity passed in, but with components added per the template.
         /// </returns>
-        public Entity BuildEntity(EntityManager manager, Entity entity, params object[] args)
+        public Entity BuildEntity(Entity entity, params object[] args)
         {
             entity.AddComponent<TransformComponent>();
             entity.AddComponent<SpriteComponent>();

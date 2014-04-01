@@ -65,7 +65,7 @@
             this.Drawable.Position = this.transform.Component.Position;
             this.Drawable.Rotation = this.transform.Component.Rotation;
 
-            this.ParentEntity.Engine.AddToRenderQueue(this.Drawable, this.DrawLayer);
+            GameEngine.Instance.AddToRenderQueue(this.Drawable, this.DrawLayer);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@
                         return;
                     }
 
-                    this.Drawable.Texture = this.ParentEntity.Engine.AssetManager.Load<Texture>(asset);
+                    this.Drawable.Texture = GameEngine.Instance.AssetManager.Load<Texture>(asset);
                 });
         }
     }

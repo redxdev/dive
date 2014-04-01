@@ -18,7 +18,7 @@
         /// </summary>
         /// <param name="engine">The engine.</param>
         /// <param name="console">The console.</param>
-        public static void Build(Engine engine, ConsoleManager console)
+        public static void Build(ConsoleManager console)
         {
             console.RegisterVariable(
                 "e_running",
@@ -26,7 +26,7 @@
                 {
                     GetFunc = () =>
                         {
-                            return engine.IsRunning.ToString();
+                            return GameEngine.Instance.IsRunning.ToString();
                         }
                 });
 
@@ -36,7 +36,7 @@
                 {
                     GetFunc = () =>
                         {
-                            return engine.Delta.ToString();
+                            return GameEngine.Instance.Delta.ToString();
                         }
                 });
 
@@ -46,7 +46,7 @@
                 {
                     GetFunc = () =>
                         {
-                            return engine.Timer.Elapsed.TotalSeconds.ToString();
+                            return GameEngine.Instance.Timer.Elapsed.TotalSeconds.ToString();
                         }
                 });
 
@@ -56,12 +56,12 @@
                 {
                     GetFunc = () =>
                         {
-                            if (engine.StateManager.CurrentState == null)
+                            if (GameEngine.Instance.StateManager.CurrentState == null)
                             {
                                 return "null";
                             }
 
-                            return engine.StateManager.CurrentState.GetType().ToString();
+                            return GameEngine.Instance.StateManager.CurrentState.GetType().ToString();
                         }
                 });
 
@@ -71,7 +71,7 @@
                 {
                     GetFunc = () =>
                         {
-                            return engine.FPS.ToString();
+                            return GameEngine.Instance.FPS.ToString();
                         }
                 });
 
@@ -81,7 +81,7 @@
                 {
                     GetFunc = () =>
                         {
-                            return engine.FrameSkip.ToString();
+                            return GameEngine.Instance.FrameSkip.ToString();
                         }
                 });
 
@@ -91,7 +91,7 @@
                 {
                     GetFunc = () =>
                         {
-                            return engine.ClearColor.R.ToString() + ", " + engine.ClearColor.G.ToString() + ", " + engine.ClearColor.B.ToString();
+                            return GameEngine.Instance.ClearColor.R.ToString() + ", " + GameEngine.Instance.ClearColor.G.ToString() + ", " + GameEngine.Instance.ClearColor.B.ToString();
                         }
                 });
 
@@ -101,12 +101,12 @@
                 {
                     GetFunc = () =>
                         {
-                            return engine.ClearColor.R.ToString();
+                            return GameEngine.Instance.ClearColor.R.ToString();
                         },
 
                     SetFunc = (value) =>
                         {
-                            engine.ClearColor = new SFML.Graphics.Color(byte.Parse(value), engine.ClearColor.G, engine.ClearColor.B, engine.ClearColor.A);
+                            GameEngine.Instance.ClearColor = new SFML.Graphics.Color(byte.Parse(value), GameEngine.Instance.ClearColor.G, GameEngine.Instance.ClearColor.B, GameEngine.Instance.ClearColor.A);
                         }
                 });
 
@@ -116,12 +116,12 @@
                 {
                     GetFunc = () =>
                     {
-                        return engine.ClearColor.G.ToString();
+                        return GameEngine.Instance.ClearColor.G.ToString();
                     },
 
                     SetFunc = (value) =>
                     {
-                        engine.ClearColor = new SFML.Graphics.Color(engine.ClearColor.R, byte.Parse(value), engine.ClearColor.B, engine.ClearColor.A);
+                        GameEngine.Instance.ClearColor = new SFML.Graphics.Color(GameEngine.Instance.ClearColor.R, byte.Parse(value), GameEngine.Instance.ClearColor.B, GameEngine.Instance.ClearColor.A);
                     }
                 });
 
@@ -131,12 +131,12 @@
                 {
                     GetFunc = () =>
                     {
-                        return engine.ClearColor.B.ToString();
+                        return GameEngine.Instance.ClearColor.B.ToString();
                     },
 
                     SetFunc = (value) =>
                     {
-                        engine.ClearColor = new SFML.Graphics.Color(engine.ClearColor.R, engine.ClearColor.G, byte.Parse(value), engine.ClearColor.A);
+                        GameEngine.Instance.ClearColor = new SFML.Graphics.Color(GameEngine.Instance.ClearColor.R, GameEngine.Instance.ClearColor.G, byte.Parse(value), GameEngine.Instance.ClearColor.A);
                     }
                 });
 
@@ -146,7 +146,7 @@
                 {
                     GetFunc = () =>
                     {
-                        return engine.Scheduler.Tasks.Count.ToString();
+                        return GameEngine.Instance.Scheduler.Tasks.Count.ToString();
                     }
                 });
         }

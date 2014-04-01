@@ -23,12 +23,10 @@
         /// <param name="name">The entity name or null.</param>
         /// <param name="engine">The engine.</param>
         /// <param name="manager">The entity manager.</param>
-        public Entity(long id, string name, Engine engine, EntityManager manager)
+        public Entity(long id, string name)
         {
             this.Id = id;
             this.name = name;
-            this.Engine = engine;
-            this.Manager = manager;
             this.components = new SortedDictionary<Type, IComponent>(new ComponentComparer());
         }
 
@@ -71,33 +69,9 @@
 
             set
             {
-                this.Manager.NotifyNameChange(this, value);
+                GameEngine.Instance.EntityManager.NotifyNameChange(this, value);
                 this.name = value;
             }
-        }
-
-        /// <summary>
-        /// Gets the engine.
-        /// </summary>
-        /// <value>
-        /// The engine.
-        /// </value>
-        public Engine Engine
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Gets the entity manager.
-        /// </summary>
-        /// <value>
-        /// The entity manager.
-        /// </value>
-        public EntityManager Manager
-        {
-            get;
-            private set;
         }
 
         /// <summary>

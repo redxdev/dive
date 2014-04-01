@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Dive.Engine;
     using Dive.Script;
     using Dive.Script.Attributes;
     using Dive.Util;
@@ -42,7 +43,7 @@
                 throw new ArgumentException(string.Format("Unknown type \"{0}\"", typeName));
             }
 
-            console.GameEngine.AssetManager.Load(type, key);
+            GameEngine.Instance.AssetManager.Load(type, key);
         }
 
         /// <summary>
@@ -73,7 +74,7 @@
                 throw new ArgumentException(string.Format("Unknown type \"{0}\"", typeName));
             }
 
-            console.GameEngine.AssetManager.Reload(type, key);
+            GameEngine.Instance.AssetManager.Reload(type, key);
         }
 
         /// <summary>
@@ -90,7 +91,7 @@
                 throw new ArgumentException(string.Format("Wrong number of arguments for asset_load (expected 0, got {0})", cmd.Arguments.Count));
             }
 
-            console.GameEngine.AssetManager.Clean();
+            GameEngine.Instance.AssetManager.Clean();
         }
 
         /// <summary>
@@ -121,7 +122,7 @@
                 throw new ArgumentException(string.Format("Unknown type \"{0}\"", typeName));
             }
 
-            if (console.GameEngine.AssetManager.IsLoaded(type, key))
+            if (GameEngine.Instance.AssetManager.IsLoaded(type, key))
             {
                 ConsoleManager.ConsoleLog.Info("loaded");
             }

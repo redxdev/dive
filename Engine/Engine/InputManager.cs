@@ -27,15 +27,12 @@
 
         private Dictionary<string, InputMapping> actionMappings;
 
-        private Engine engine = null;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="InputManager"/> class.
         /// </summary>
         /// <param name="engine">The engine.</param>
-        public InputManager(Engine engine)
+        public InputManager()
         {
-            this.engine = engine;
             this.inputMappings = new Dictionary<InputMapping, string>();
             this.actionMappings = new Dictionary<string, InputMapping>();
         }
@@ -52,12 +49,12 @@
         {
             this.ReadConfigurationMappings();
 
-            this.engine.Window.KeyPressed += this.OnKeyPressed;
-            this.engine.Window.KeyReleased += this.OnKeyReleased;
-            this.engine.Window.MouseButtonPressed += this.OnMouseButtonPressed;
-            this.engine.Window.MouseButtonReleased += this.OnMouseButtonReleased;
-            this.engine.Window.MouseWheelMoved += this.OnMouseWheelMoved;
-            this.engine.Window.TextEntered += this.OnTextEntered;
+            GameEngine.Instance.Window.KeyPressed += this.OnKeyPressed;
+            GameEngine.Instance.Window.KeyReleased += this.OnKeyReleased;
+            GameEngine.Instance.Window.MouseButtonPressed += this.OnMouseButtonPressed;
+            GameEngine.Instance.Window.MouseButtonReleased += this.OnMouseButtonReleased;
+            GameEngine.Instance.Window.MouseWheelMoved += this.OnMouseWheelMoved;
+            GameEngine.Instance.Window.TextEntered += this.OnTextEntered;
         }
 
         /// <summary>
@@ -98,7 +95,7 @@
         /// </summary>
         public void ReadConfigurationMappings()
         {
-            IniParser.IniData config = this.engine.AssetManager.Load<IniParser.IniData>("config/input.ini");
+            IniParser.IniData config = GameEngine.Instance.AssetManager.Load<IniParser.IniData>("config/input.ini");
 
             foreach (IniParser.SectionData section in config.Sections)
             {
@@ -145,7 +142,7 @@
         /// <returns>The mouse position.</returns>
         public Vector2i GetMousePosition()
         {
-            return Mouse.GetPosition(this.engine.Window);
+            return Mouse.GetPosition(GameEngine.Instance.Window);
         }
 
         /// <summary>
@@ -154,7 +151,7 @@
         /// <param name="pos">The mouse position.</param>
         public void SetMousePosition(Vector2i pos)
         {
-            Mouse.SetPosition(pos, this.engine.Window);
+            Mouse.SetPosition(pos, GameEngine.Instance.Window);
         }
 
         /// <summary>
@@ -165,7 +162,7 @@
         /// <returns>True if the action is active, false if not.</returns>
         public bool IsActionActive(string action)
         {
-            if (this.engine.ConsoleViewer.Enabled)
+            if (GameEngine.Instance.ConsoleViewer.Enabled)
             {
                 return false;
             }
@@ -198,7 +195,7 @@
         /// <param name="e">The <see cref="TextEventArgs"/> instance containing the event data.</param>
         public void OnTextEntered(object sender, TextEventArgs e)
         {
-            this.engine.ConsoleViewer.OnInput(e);
+            GameEngine.Instance.ConsoleViewer.OnInput(e);
         }
 
         /// <summary>
@@ -208,9 +205,9 @@
         /// <param name="e">The event arguments.</param>
         protected void OnKeyPressed(object sender, KeyEventArgs e)
         {
-            this.engine.ConsoleViewer.OnInput(e);
+            GameEngine.Instance.ConsoleViewer.OnInput(e);
 
-            if (this.engine.ConsoleViewer.Enabled)
+            if (GameEngine.Instance.ConsoleViewer.Enabled)
             {
                 return;
             }
@@ -235,7 +232,7 @@
         /// <param name="e">The event arguments.</param>
         protected void OnKeyReleased(object sender, KeyEventArgs e)
         {
-            if (this.engine.ConsoleViewer.Enabled)
+            if (GameEngine.Instance.ConsoleViewer.Enabled)
             {
                 return;
             }
@@ -260,7 +257,7 @@
         /// <param name="e">The event arguments.</param>
         protected void OnMouseButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            if (this.engine.ConsoleViewer.Enabled)
+            if (GameEngine.Instance.ConsoleViewer.Enabled)
             {
                 return;
             }
@@ -285,7 +282,7 @@
         /// <param name="e">The event arguments.</param>
         protected void OnMouseButtonReleased(object sender, MouseButtonEventArgs e)
         {
-            if (this.engine.ConsoleViewer.Enabled)
+            if (GameEngine.Instance.ConsoleViewer.Enabled)
             {
                 return;
             }
@@ -310,9 +307,9 @@
         /// <param name="e">The event arguments.</param>
         protected void OnMouseWheelMoved(object sender, MouseWheelEventArgs e)
         {
-            this.engine.ConsoleViewer.OnInput(e);
+            GameEngine.Instance.ConsoleViewer.OnInput(e);
 
-            if (this.engine.ConsoleViewer.Enabled)
+            if (GameEngine.Instance.ConsoleViewer.Enabled)
             {
                 return;
             }

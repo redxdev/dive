@@ -18,6 +18,6 @@
         /// <param name="entity">The entity.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>The same entity passed in, but with components added per the template.</returns>
-        Entity BuildEntity(EntityManager manager, Entity entity, params object[] args);
+        Entity BuildEntity(Entity entity, params object[] args);
     }
 }

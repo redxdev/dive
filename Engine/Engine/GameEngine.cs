@@ -18,9 +18,11 @@
     /// <summary>
     /// Handles the main game loop.
     /// </summary>
-    public class Engine
+    public class GameEngine
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(Engine));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(GameEngine));
+
+        private static GameEngine instance = null;
 
         private Assets.AssetManager assetManager = null;
 
@@ -49,37 +51,43 @@
         private ConsoleViewer consoleViewer = null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Engine" /> class.
+        /// Initializes a new instance of the <see cref="GameEngine" /> class.
         /// </summary>
-        public Engine()
+        public GameEngine()
         {
+            if (Instance != null)
+            {
+                throw new InvalidOperationException("Engine instance already exists");
+            }
+
+            instance = this;
+
             Log.Debug("Initializing Engine");
 
             this.ClearColor = ColorConstants.CornflowerBlue;
             this.LargestDrawLayer = int.MinValue;
 
-            this.console = new ConsoleManager(this, true);
-            this.entityManager = new EntityManager(this);
+            this.console = new ConsoleManager(true);
+            this.entityManager = new EntityManager();
             this.assetManager = new Assets.AssetManager(true);
-            this.stateManager = new GameStateManager(this, true);
-            this.input = new InputManager(this);
+            this.stateManager = new GameStateManager(true);
+            this.input = new InputManager();
             this.physicsWorld = new World(new Microsoft.Xna.Framework.Vector2(0f, 0f));
-            this.consoleViewer = new ConsoleViewer(this);
+            this.consoleViewer = new ConsoleViewer();
 
             ConvertUnits.SetDisplayUnitToSimUnitRatio(64f);
 
             this.Input.ActionEvent += this.OnInputAction;
 
-            foreach (log4net.Appender.IAppender appender in LogManager.GetRepository().GetAppenders())
-            {
-                if (appender is Dive.Util.Logging.ScriptingConsoleAppender)
-                {
-                    Dive.Util.Logging.ScriptingConsoleAppender sca = (Dive.Util.Logging.ScriptingConsoleAppender)appender;
-                    sca.ConsoleViewer = this.ConsoleViewer;
-                }
-            }
-
             Log.Debug("Initialized Engine");
+        }
+
+        public static GameEngine Instance
+        {
+            get
+            {
+                return instance;
+            }
         }
 
         /// <summary>
@@ -313,6 +321,14 @@
         {
             get;
             protected set;
+        }
+
+        /// <summary>
+        /// Sets the current engine instance as inactive.
+        /// </summary>
+        public static void CleanupInstance()
+        {
+            instance = null;
         }
 
         /// <summary>
@@ -641,14 +657,14 @@
                 Log.Debug("Using debug handler " + debugHandlerType.Name);
 
                 this.Debug = (DebugHandler)Activator.CreateInstance(debugHandlerType);
-                this.Debug.Initialize(this);
+                this.Debug.Initialize();
             }
             else
             {
                 this.Debug = null;
             }
 
-            EngineScriptInterface.Build(this, this.Console);
+            EngineScriptInterface.Build(this.Console);
 
             try
             {
@@ -723,7 +739,7 @@
 
             if (this.Debug != null)
             {
-                this.Debug.Draw(this);
+                this.Debug.Draw();
             }
 
             this.Window.Display();

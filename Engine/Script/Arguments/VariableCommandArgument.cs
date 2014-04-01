@@ -1,10 +1,11 @@
-﻿namespace Dive.Script
+﻿namespace Dive.Script.Arguments
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Dive.Engine;
     using log4net;
 
     /// <summary>
@@ -24,13 +25,13 @@
         {
             get
             {
-                if (!this.Console.ContainsVariable(this.RawValue))
+                if (!GameEngine.Instance.Console.ContainsVariable(this.RawValue))
                 {
                     Log.Warn(string.Format("Unknown variable \"{0}\", using null", this.RawValue));
                     return null;
                 }
 
-                return this.Console.GetVariable(this.RawValue).Value;
+                return GameEngine.Instance.Console.GetVariable(this.RawValue).Value;
             }
         }
 

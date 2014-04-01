@@ -1,4 +1,4 @@
-﻿namespace Dive.Script
+﻿namespace Dive.Script.Arguments
 {
     using System;
     using System.Collections.Generic;
@@ -7,20 +7,21 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Command argument interface. Passed to command functions by the ConsoleManager.
+    /// Basic command argument backed by a string.
     /// </summary>
-    public interface ICommandArgument
+    public class BasicCommandArgument : ICommandArgument
     {
         /// <summary>
-        /// Gets the raw value. This is usually the value passed to the argument by
+        /// Gets or sets the raw value. This is usually the value passed to the argument by
         /// the parser. Use Value instead of this when inside a command.
         /// </summary>
         /// <value>
         /// The raw value.
         /// </value>
-        string RawValue
+        public virtual string RawValue
         {
             get;
+            set;
         }
 
         /// <summary>
@@ -30,21 +31,23 @@
         /// <value>
         /// The value.
         /// </value>
-        string Value
+        public virtual string Value
         {
-            get;
+            get
+            {
+                return this.RawValue;
+            }
         }
 
         /// <summary>
-        /// Gets or sets the console.
+        /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
-        /// <value>
-        /// The console.
-        /// </value>
-        ConsoleManager Console
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
         {
-            get;
-            set;
+            return string.Format("BasicCommandArgument{{ RawValue = \"{0}\" }}", this.RawValue);
         }
     }
 }
