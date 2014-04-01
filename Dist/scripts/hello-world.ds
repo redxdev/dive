@@ -1,0 +1,20 @@
+# Hello world with entity commands!
+
+# Entity creation
+entity_create text
+entity_disable @text
+entity_attach(@text,Engine.Transform)
+entity_attach(@text,Engine.Graphics.Text)
+
+# Entity properties
+entity_prop_init
+entity_prop_set(Text.String,"Hello World!")
+entity_prop_set(Text.Font,content/fonts/DroidSansMono.ttf)
+entity_prop_set(Text.Color,"100,0,200")
+entity_prop_set(Text.CharacterSize,30)
+entity_prop_set(Transform.X,300)
+entity_prop_set(Transform.Y,300)
+entity_prop_build @text
+
+# Enable the entity
+entity_enable @text

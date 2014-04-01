@@ -1,0 +1,177 @@
+﻿namespace Dive.Engine.Scheduler
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using log4net;
+
+    /// <summary>
+    /// Handles executing tasks both synchronously and (eventually) asynchronously. This class is thread-safe.
+    /// <para>
+    /// The scheduler is aware of how long task execution takes, and will hold back expiring tasks if previous
+    /// tasks have taken too long. As a result, there is no guarantee that a task will execute on-time.
+    /// </para>
+    /// <para>
+    /// The scheduler's timing scheme prevents tasks from blocking the main thread too long, whether it be from
+    /// a single task taking a long time to execute, or from too many tasks trying to execute at once.
+    /// </para>
+    /// <para>
+    /// Properties of the scheduler include:
+    /// <list type="bullet">
+    /// <item>Not guaranteed to execute tasks on-time</item>
+    /// <item>Guaranteed to execute tasks after they expire</item>
+    /// <item>Tries to prevent blocking the main thread for too long</item>
+    /// <item>Guaranteed to run at least one task per frame</item>
+    /// <item>Task execution order is not guaranteed</item>
+    /// <item>Executes tasks that are most past their expiry time, first</item>
+    /// <item>Tasks just expiring will execute after long-expired tasks</item>
+    /// </list>
+    /// </para>
+    /// </summary>
+    public class DiveScheduler
+    {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(DiveScheduler));
+
+        private readonly object taskLock = new object();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiveScheduler"/> class.
+        /// </summary>
+        public DiveScheduler()
+        {
+            this.Tasks = new LinkedList<TaskInfo>();
+        }
+
+        /// <summary>
+        /// Delegate for tasks that the scheduler can run.
+        /// </summary>
+        public delegate void Task();
+
+        /// <summary>
+        /// Gets or sets the task list.
+        /// </summary>
+        /// <value>
+        /// The task list.
+        /// </value>
+        public LinkedList<TaskInfo> Tasks
+        {
+            get;
+            protected set;
+        }
+
+        /// <summary>
+        /// Schedules the task for later execution. Long-blocking tasks should never be run
+        /// synchronously, as any and all tasks that can be executed will be executed each cycle.
+        /// Additionally, the scheduler does not guarantee the timing of each task. If you need
+        /// precision timing, look elsewhere.
+        /// <para>
+        /// If task.Task is null, the task will not be added. If task.Completed is true, the task will be
+        /// added but will be removed if task.Completed is not set to false by the next call of RunTasks.
+        /// </para>
+        /// </summary>
+        /// <param name="task">The task info object.</param>
+        public void ScheduleTask(TaskInfo task)
+        {
+            task.Completed = false;
+
+            if (task.Task == null)
+            {
+                Log.Warn("skipping null task; setting Completed to true and skipping");
+                task.Completed = true;
+            }
+
+            task.TimeLeft = task.ExecuteAfter;
+
+            lock (this.taskLock)
+            {
+                this.Tasks.AddLast(task);
+            }
+        }
+
+        /// <summary>
+        /// Removes the task from the scheduler.
+        /// </summary>
+        /// <param name="task">The task to remove.</param>
+        /// <returns>true if the task was removed, false if the task was not scheduled.</returns>
+        public bool RemoveTask(TaskInfo task)
+        {
+            lock (this.taskLock)
+            {
+                return this.Tasks.Remove(task);
+            }
+        }
+
+        /// <summary>
+        /// Updates the scheduler and runs any tasks that should be run.
+        /// </summary>
+        /// <param name="delta">The time delta since the last call.</param>
+        /// <param name="timer">The engine timer.</param>
+        /// <param name="nextAction">The time of the next action.</param>
+        public void RunTasks(float delta, Stopwatch timer, float nextAction)
+        {
+            var node = this.Tasks.First;
+            while (node != null)
+            {
+                var nextNode = node.Next;
+                TaskInfo task = node.Value;
+                task.TimeLeft -= delta;
+                if (task.Completed)
+                {
+                    lock (this.taskLock)
+                    {
+                        this.Tasks.Remove(node);
+                    }
+                }
+
+                node = nextNode;
+            }
+
+            lock (this.taskLock)
+            {
+                this.Tasks = new LinkedList<TaskInfo>(this.Tasks.OrderBy((task) => task.TimeLeft));
+            }
+
+            node = this.Tasks.First;
+            while (node != null)
+            {
+                var nextNode = node.Next;
+                TaskInfo task = node.Value;
+                if (task.TimeLeft <= 0)
+                {
+                    try
+                    {
+                        task.Task.Invoke();
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error("Task threw uncaught exception", e);
+                    }
+
+                    if (task.Repeating)
+                    {
+                        task.TimeLeft = task.ExecuteAfter;
+                    }
+                    else
+                    {
+                        task.Completed = true;
+                        lock (this.taskLock)
+                        {
+                            this.Tasks.Remove(node);
+                        }
+                    }
+                }
+
+                node = nextNode;
+
+                if (timer.Elapsed.TotalSeconds >= nextAction)
+                {
+                    break;
+                }
+            }
+        }
+    }
+}
