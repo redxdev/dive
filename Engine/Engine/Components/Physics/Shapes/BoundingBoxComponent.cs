@@ -26,6 +26,12 @@
 
         private ComponentLookup<Graphics.SpriteComponent> sprite = null;
 
+        /// <summary>
+        /// Gets or sets the fixture.
+        /// </summary>
+        /// <value>
+        /// The fixture.
+        /// </value>
         public Fixture Fixture
         {
             get;
@@ -57,12 +63,20 @@
             this.Fixture = this.body.Component.Body.CreateFixture(polygon, this);
         }
 
+        /// <summary>
+        /// Clears this instance. Called when the parent entity is removed from the world and
+        /// is clearing itself.
+        /// </summary>
         public override void Clear()
         {
             this.body.Component.Body.DestroyFixture(this.Fixture);
             this.Fixture = null;
         }
 
+        /// <summary>
+        /// Reads the properties.
+        /// </summary>
+        /// <param name="properties">The properties.</param>
         public override void BuildProperties(IDictionary<string, string> properties)
         {
             this.BuildProperty<float>(properties, "BoundingBox.Restitution", value => this.Fixture.Restitution = value);
