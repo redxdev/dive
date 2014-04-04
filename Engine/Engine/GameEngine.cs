@@ -26,7 +26,7 @@
 
         private Assets.AssetManager assetManager = null;
 
-        private IniParser.IniData configuration = null;
+        private IniParser.Model.IniData configuration = null;
 
         private bool isRunning = false;
 
@@ -118,7 +118,7 @@
         /// Gets the engine's main configuration.
         /// </summary>
         /// <value>The engine's main configuration.</value>
-        public IniParser.IniData Configuration
+        public IniParser.Model.IniData Configuration
         {
             get
             {
@@ -356,7 +356,7 @@
 
             try
             {
-                this.configuration = this.AssetManager.Load<IniParser.IniData>("config/engine.ini");
+                this.configuration = this.AssetManager.Load<IniParser.Model.IniData>("config/engine.ini");
             }
             catch (Assets.AssetException e)
             {

@@ -95,9 +95,9 @@
         /// </summary>
         public void ReadConfigurationMappings()
         {
-            IniParser.IniData config = GameEngine.Instance.AssetManager.Load<IniParser.IniData>("config/input.ini");
+            IniParser.Model.IniData config = GameEngine.Instance.AssetManager.Load<IniParser.Model.IniData>("config/input.ini");
 
-            foreach (IniParser.SectionData section in config.Sections)
+            foreach (IniParser.Model.SectionData section in config.Sections)
             {
                 string action = section.SectionName;
                 string map = section.Keys["map"];

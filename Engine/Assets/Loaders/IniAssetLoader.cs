@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using Dive.Assets.Attributes;
     using IniParser;
+    using IniParser.Model;
 
     /// <summary>
     /// Loads ini configuration assets.
@@ -43,7 +44,7 @@
         /// <param name="data">The ini data.</param>
         public void Save(string key, IniData data)
         {
-            this.Parser.SaveFile(key, data);
+            this.Parser.WriteFile(key, data);
         }
 
         /// <summary>
@@ -57,7 +58,7 @@
         /// <exception cref="AssetLoadException">Unable to load ini file (LoadFile returned null).</exception>
         public object Load(AssetManager manager, string key)
         {
-            IniData data = this.Parser.LoadFile(key);
+            IniData data = this.Parser.ReadFile(key);
             if (data == null)
             {
                 throw new AssetLoadException("Unable to load ini file (LoadFile returned null)");
