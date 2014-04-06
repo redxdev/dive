@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
     using System.Threading.Tasks;
     using Dive.Engine.Extensions;
@@ -67,12 +68,22 @@
             this.ClearColor = ColorConstants.CornflowerBlue;
             this.LargestDrawLayer = int.MinValue;
 
-            this.console = new ConsoleManager(true);
+            this.console = new ConsoleManager();
+            this.Console.ImportAssembly(Assembly.GetExecutingAssembly());
+
             this.entityManager = new EntityManager();
-            this.assetManager = new Assets.AssetManager(true);
-            this.stateManager = new GameStateManager(true);
+            this.EntityManager.ImportAssembly(Assembly.GetExecutingAssembly());
+
+            this.assetManager = new Assets.AssetManager();
+            this.AssetManager.ImportAssembly(Assembly.GetExecutingAssembly());
+
+            this.stateManager = new GameStateManager();
+            this.StateManager.ImportAssembly(Assembly.GetExecutingAssembly());
+
             this.input = new InputManager();
+
             this.physicsWorld = new World(new Microsoft.Xna.Framework.Vector2(0f, 0f));
+
             this.consoleViewer = new ConsoleViewer();
 
             ConvertUnits.SetDisplayUnitToSimUnitRatio(64f);

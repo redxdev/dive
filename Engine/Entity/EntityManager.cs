@@ -38,35 +38,6 @@
             this.entityNames = new Dictionary<string, Entity>();
             this.componentRegistry = new Dictionary<string, Type>();
             this.templateRegistry = new Dictionary<string, ITemplate>();
-
-            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                foreach (Type type in assembly.GetTypes())
-                {
-                    if (typeof(IComponent).IsAssignableFrom(type))
-                    {
-                        try
-                        {
-                            EntityComponent compAttr = (EntityComponent)Attribute.GetCustomAttribute(type, typeof(EntityComponent));
-                            this.componentRegistry.Add(compAttr.Name, type);
-                        }
-                        catch
-                        {
-                        }
-                    }
-                    else if (typeof(ITemplate).IsAssignableFrom(type))
-                    {
-                        try
-                        {
-                            EntityTemplate tempAttr = (EntityTemplate)Attribute.GetCustomAttribute(type, typeof(EntityTemplate));
-                            this.templateRegistry.Add(tempAttr.Name, (ITemplate)Activator.CreateInstance(type));
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -122,6 +93,36 @@
             get
             {
                 return this.componentRegistry;
+            }
+        }
+
+        public void ImportAssembly(Assembly assembly)
+        {
+            foreach (Type type in assembly.GetTypes())
+            {
+                if (typeof(IComponent).IsAssignableFrom(type))
+                {
+                    try
+                    {
+                        EntityComponent compAttr = (EntityComponent)Attribute.GetCustomAttribute(type, typeof(EntityComponent));
+                        this.componentRegistry.Add(compAttr.Name, type);
+                    }
+                    catch
+                    {
+                    }
+                }
+                
+                if (typeof(ITemplate).IsAssignableFrom(type))
+                {
+                    try
+                    {
+                        EntityTemplate tempAttr = (EntityTemplate)Attribute.GetCustomAttribute(type, typeof(EntityTemplate));
+                        this.templateRegistry.Add(tempAttr.Name, (ITemplate)Activator.CreateInstance(type));
+                    }
+                    catch
+                    {
+                    }
+                }
             }
         }
 

@@ -35,43 +35,11 @@
         /// </summary>
         /// <param name="engine">The engine.</param>
         /// <param name="autoLoad">If set to <c>true</c> [automatic load].</param>
-        public ConsoleManager(bool autoLoad = true)
+        public ConsoleManager()
         {
             this.Variables = new Dictionary<string, IConVar>();
             this.Commands = new Dictionary<string, CommandInfo>();
             this.SetupVariables();
-
-            if (autoLoad)
-            {
-                foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
-                {
-                    foreach (Type type in assembly.GetTypes())
-                    {
-                        foreach (MethodInfo method in type.GetMethods())
-                        {
-                            foreach (Attributes.CommandDef attribute in method.GetCustomAttributes<Attributes.CommandDef>(false))
-                            {
-                                try
-                                {
-                                    CommandInfo info = new CommandInfo()
-                                    {
-                                        Command = (ConsoleCommand)ConsoleCommand.CreateDelegate(typeof(ConsoleCommand), method, true),
-                                        Name = attribute.Name,
-                                        Usage = attribute.Usage,
-                                        Help = attribute.Help
-                                    };
-
-                                    this.RegisterCommand(info);
-                                }
-                                catch (Exception e)
-                                {
-                                    Log.Warn(string.Format("Unable to register command \"{0}\"", attribute.Name), e);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -96,6 +64,39 @@
         {
             get;
             protected set;
+        }
+
+        /// <summary>
+        /// Loads any console-related types from an assembly.
+        /// </summary>
+        /// <param name="assembly">The assembly.</param>
+        public void ImportAssembly(Assembly assembly)
+        {
+            foreach (Type type in assembly.GetTypes())
+            {
+                foreach (MethodInfo method in type.GetMethods())
+                {
+                    foreach (Attributes.CommandDef attribute in method.GetCustomAttributes<Attributes.CommandDef>(false))
+                    {
+                        try
+                        {
+                            CommandInfo info = new CommandInfo()
+                            {
+                                Command = (ConsoleCommand)ConsoleCommand.CreateDelegate(typeof(ConsoleCommand), method, true),
+                                Name = attribute.Name,
+                                Usage = attribute.Usage,
+                                Help = attribute.Help
+                            };
+
+                            this.RegisterCommand(info);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Warn(string.Format("Unable to register command \"{0}\"", attribute.Name), e);
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>

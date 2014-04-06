@@ -24,28 +24,9 @@
         /// </summary>
         /// <param name="engine">The engine.</param>
         /// <param name="autoAddGameStates">Whether to automatically add <see cref="IGameState"/>s with the <see cref="Dive.Engine.Attributes.GameState"/> attribute.</param>
-        public GameStateManager(bool autoAddGameStates = true)
+        public GameStateManager()
         {
             this.gameStates = new Dictionary<Type, IGameState>();
-
-            if (autoAddGameStates)
-            {
-                foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
-                {
-                    foreach (Type type in assembly.GetTypes())
-                    {
-                        if (!typeof(IGameState).IsAssignableFrom(type))
-                        {
-                            continue;
-                        }
-
-                        foreach (Attributes.GameState attribute in type.GetCustomAttributes<Attributes.GameState>(false))
-                        {
-                            this.AddState((IGameState)Activator.CreateInstance(type));
-                        }
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -69,6 +50,26 @@
             get
             {
                 return this.currentState;
+            }
+        }
+
+        /// <summary>
+        /// Imports types from an assembly.
+        /// </summary>
+        /// <param name="assembly">The assembly.</param>
+        public void ImportAssembly(Assembly assembly)
+        {
+            foreach (Type type in assembly.GetTypes())
+            {
+                if (!typeof(IGameState).IsAssignableFrom(type))
+                {
+                    continue;
+                }
+
+                foreach (Attributes.GameState attribute in type.GetCustomAttributes<Attributes.GameState>(false))
+                {
+                    this.AddState((IGameState)Activator.CreateInstance(type));
+                }
             }
         }
 

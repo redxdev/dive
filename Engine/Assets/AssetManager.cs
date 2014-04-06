@@ -25,28 +25,9 @@
         /// Initializes a new instance of the <see cref="AssetManager" /> class.
         /// </summary>
         /// <param name="autoAddAssetLoaders">If true, automatically register all asset loaders that have the <see cref="Dive.Util.Assets.Attributes.AssetLoader"/> attribute.</param>
-        public AssetManager(bool autoAddAssetLoaders = true)
+        public AssetManager()
         {
             Log.Debug("Initialized AssetManager");
-
-            if (autoAddAssetLoaders)
-            {
-                foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
-                {
-                    foreach (Type type in assembly.GetTypes())
-                    {
-                        if (!typeof(IAssetLoader).IsAssignableFrom(type))
-                        {
-                            continue;
-                        }
-
-                        foreach (Attributes.AssetLoader attribute in type.GetCustomAttributes<Attributes.AssetLoader>(false))
-                        {
-                            this.RegisterAssetLoader(attribute.AssetType, (IAssetLoader)Activator.CreateInstance(type));
-                        }
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -70,6 +51,26 @@
             get
             {
                 return this.assets;
+            }
+        }
+
+        /// <summary>
+        /// Loads the any asset manager-related types from an assembly.
+        /// </summary>
+        /// <param name="assembly">The assembly.</param>
+        public void ImportAssembly(Assembly assembly)
+        {
+            foreach (Type type in assembly.GetTypes())
+            {
+                if (!typeof(IAssetLoader).IsAssignableFrom(type))
+                {
+                    continue;
+                }
+
+                foreach (Attributes.AssetLoader attribute in type.GetCustomAttributes<Attributes.AssetLoader>(false))
+                {
+                    this.RegisterAssetLoader(attribute.AssetType, (IAssetLoader)Activator.CreateInstance(type));
+                }
             }
         }
 
@@ -217,7 +218,7 @@
 
             if (!this.HasLoader(t))
             {
-                Log.Error("No asset loader registered");
+                Log.Error("No asset loader registered for type \"" + t.FullName + "\"");
                 throw new AssetLoaderException("No asset loader registered for type \"" + t.FullName + "\"");
             }
 
