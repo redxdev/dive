@@ -11,12 +11,14 @@ feature-complete! Don't use it expecting everything to work as planned.
 
 Dependency notice
 -----------------
-Dive requires the nuget package "antlr4".
 
-Tutorials
-=========
+Dive requires the following dependencies, which should automatically be installed by NuGet:
 
-You can find the official tutorial series at http://redxdev.com/category/code/tutorials/dive-engine/
+* SFML.Net
+* log4net
+* ini-parser
+* antlr4
+* FarseerPhysics
 
 Licence
 =======
