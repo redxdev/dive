@@ -85,7 +85,13 @@
     <Error Condition="!Exists('..\packages\Baseclass.Contrib.Nuget.Output.1.0.2\build\net40\Baseclass.Contrib.Nuget.Output.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Baseclass.Contrib.Nuget.Output.1.0.2\build\net40\Baseclass.Contrib.Nuget.Output.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>COPY /Y "$(ProjectDir)$(OutDir)$(TargetFileName)" "$(ProjectDir)..\Dist\bin\$(ConfigurationName)\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>RMDIR /s "$(ProjectDir)..\Dist\bin\$(ConfigurationName)\"
+MKDIR "$(ProjectDir)..\Dist\bin\$(ConfigurationName)\"
+COPY /Y "$(ProjectDir)$(OutDir)$(TargetFileName)" "$(ProjectDir)..\Dist\bin\$(ConfigurationName)\$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
