@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\AssetCommands.cs" />
+    <Compile Include="Assets\Loaders\DLLLoader.cs" />
     <Compile Include="Assets\Loaders\FontLoader.cs" />
     <Compile Include="Assets\Loaders\ImageLoader.cs" />
     <Compile Include="Assets\Loaders\IniAssetLoader.cs" />
@@ -176,11 +177,6 @@
     <Compile Include="Engine\InputManager.cs" />
     <Compile Include="Engine\InputMapping.cs" />
     <Compile Include="Engine\InputMappingException.cs" />
-    <Compile Include="Game\States\Tutorials\Tutorial3\MyFirstGameState.cs" />
-    <Compile Include="Game\States\Tutorials\Tutorial3\MySecondGameState.cs" />
-    <Compile Include="Game\States\Tutorials\Tutorial1\MyFirstGameState.cs" />
-    <Compile Include="Game\States\Tutorials\Tutorial2\MySecondGameState.cs" />
-    <Compile Include="Game\States\Tutorials\Tutorial2\MyFirstGameState.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Assets\AssetException.cs" />
@@ -202,10 +198,7 @@
       <CustomToolNamespace>Dive.Script.Language</CustomToolNamespace>
     </Antlr4>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Game\Components\" />
-    <Folder Include="Game\Templates\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
       <Visible>False</Visible>

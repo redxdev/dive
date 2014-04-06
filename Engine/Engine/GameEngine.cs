@@ -567,6 +567,14 @@
             }
         }
 
+        public void ImportAssembly(Assembly assembly)
+        {
+            this.Console.ImportAssembly(assembly);
+            this.EntityManager.ImportAssembly(assembly);
+            this.AssetManager.ImportAssembly(assembly);
+            this.StateManager.ImportAssembly(assembly);
+        }
+
         /// <summary>
         /// Called before starting the game loop.
         /// </summary>
@@ -636,6 +644,25 @@
 
             this.Window.Closed += this.OnWindowClosed;
             this.Window.Resized += this.OnWindowResized;
+
+#if DEBUG
+            string gameAssemblyPath = "bin/Debug/Game.dll";
+#else
+            string gameAssemblyPath = "bin/Release/Game.dll";
+#endif
+            Log.Info("Loading game assembly " + gameAssemblyPath);
+
+            Assembly gameAssembly = this.AssetManager.Load<Assembly>(gameAssemblyPath);
+            if (gameAssembly == null)
+            {
+                Log.Fatal("Unable to load game assembly");
+                Log.Fatal("Unable to initialize engine");
+                return false;
+            }
+
+            this.ImportAssembly(gameAssembly);
+
+            Log.Info("Loaded game assembly");
 
             this.Input.Initialize();
             this.StateManager.Initialize();

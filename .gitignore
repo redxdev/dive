@@ -32,6 +32,7 @@ _ReSharper*/
 *.[Pp]ublish.xml
 *.resharper
 packages/**
+Dist/bin/**.dll
 
 # For projects upgraded from VS2010
 [Bb]ackup/
