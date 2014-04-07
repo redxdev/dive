@@ -1,6 +1,4 @@
 # Dive Initialization Script
 echo("DScript", $s_version)
 
-echo("Game initialization")
-changestate(Dive.Game.States.Tutorials.Tutorial3.MyFirstGameState)
-echo("Game initialization finished")
+# changestate(MyStartupGameState)

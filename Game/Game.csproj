@@ -32,6 +32,9 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FarseerPhysics">
+      <HintPath>..\packages\FarseerPhysics.3.5.0\lib\NET40\FarseerPhysics.dll</HintPath>
+    </Reference>
     <Reference Include="INIFileParser">
       <HintPath>..\packages\ini-parser.2.0.2\lib\INIFileParser.dll</HintPath>
     </Reference>
@@ -56,11 +59,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game\States\Tutorials\Tutorial1\MyFirstGameState.cs" />
-    <Compile Include="Game\States\Tutorials\Tutorial2\MyFirstGameState.cs" />
-    <Compile Include="Game\States\Tutorials\Tutorial2\MySecondGameState.cs" />
-    <Compile Include="Game\States\Tutorials\Tutorial3\MyFirstGameState.cs" />
-    <Compile Include="Game\States\Tutorials\Tutorial3\MySecondGameState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Game\Components\" />
+    <Folder Include="Game\States\" />
     <Folder Include="Game\Templates\" />
   </ItemGroup>
   <ItemGroup>
