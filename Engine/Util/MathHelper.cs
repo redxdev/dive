@@ -22,5 +22,25 @@ namespace Dive.Util
 
             return value;
         }
+
+        public static T Min<T>(T value1, T value2) where T : IComparable<T>
+        {
+            if (value1.CompareTo(value2) > 0)
+            {
+                return value2;
+            }
+
+            return value1;
+        }
+
+        public static T Max<T>(T value1, T value2) where T : IComparable<T>
+        {
+            if (value1.CompareTo(value2) > 0)
+            {
+                return value2;
+            }
+
+            return value1;
+        }
     }
 }
