@@ -117,6 +117,10 @@ argument returns [ICommandArgument arg]
 		{
 			$arg = new BasicCommandArgument() { RawValue = $str.text };
 		}
+	|	str=STRING_EXT
+		{
+			$arg = new BasicCommandArgument() { RawValue = $str.text };
+		}
 	|	num=NUMBER
 		{
 			$arg = new BasicCommandArgument() { RawValue = $num.text };
@@ -149,6 +153,13 @@ STRING
 			Text = Text.Substring(1, Text.Length - 2)
 				.Replace("\\\\", "\\")
 				.Replace("\\\"", "\"");
+		}
+	;
+
+STRING_EXT
+	:	'[[' .*? ']]'
+		{
+			Text = Text.Substring(2, Text.Length - 4);
 		}
 	;
 
