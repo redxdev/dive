@@ -12,8 +12,6 @@
     using Dive.Engine.Scheduler;
     using Dive.Entity;
     using Dive.Script;
-    using FarseerPhysics;
-    using FarseerPhysics.Dynamics;
     using log4net;
     using SFML.Graphics;
 
@@ -43,8 +41,6 @@
         private InputManager input = null;
 
         private List<EngineDrawable> drawList = new List<EngineDrawable>();
-
-        private World physicsWorld = null;
 
         private DiveScheduler scheduler = new DiveScheduler();
 
@@ -83,11 +79,7 @@
 
             this.input = new InputManager();
 
-            this.physicsWorld = new World(new Microsoft.Xna.Framework.Vector2(0f, 0f));
-
             this.consoleViewer = new ConsoleViewer();
-
-            ConvertUnits.SetDisplayUnitToSimUnitRatio(64f);
 
             this.Input.ActionEvent += this.OnInputAction;
 
@@ -207,20 +199,6 @@
             get
             {
                 return this.input;
-            }
-        }
-
-        /// <summary>
-        /// Gets the physics world.
-        /// </summary>
-        /// <value>
-        /// The physics world.
-        /// </value>
-        public World PhysicsWorld
-        {
-            get
-            {
-                return this.physicsWorld;
             }
         }
 
@@ -769,7 +747,6 @@
         {
             this.Window.DispatchEvents();
 
-            this.PhysicsWorld.Step((float)this.Delta);
             this.EntityManager.Update();
             this.StateManager.Update();
 

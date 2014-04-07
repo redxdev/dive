@@ -12,7 +12,6 @@
     using Dive.Engine.Components.Graphics;
     using Dive.Engine.Components.Map;
     using Dive.Entity;
-    using FarseerPhysics;
     using log4net;
     using SFML.Graphics;
     using SFML.Window;
@@ -49,15 +48,6 @@
             foreach (Tileset tileset in map.Tilesets)
             {
                 Log.Debug("Tileset: " + tileset.Name);
-            }
-
-            if (map.Properties.ContainsKey("physics-scale"))
-            {
-                ConvertUnits.SetDisplayUnitToSimUnitRatio(float.Parse(map.Properties["physics-scale"]));
-            }
-            else
-            {
-                ConvertUnits.SetDisplayUnitToSimUnitRatio(map.TileHeight * 2);
             }
 
             List<Entity> entities = new List<Entity>();

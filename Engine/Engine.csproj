@@ -57,9 +57,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr4.Runtime.4.2.1-alpha001\lib\net45\Antlr4.Runtime.v4.5.dll</HintPath>
     </Reference>
-    <Reference Include="FarseerPhysics">
-      <HintPath>..\packages\FarseerPhysics.3.5.0\lib\NET40\FarseerPhysics.dll</HintPath>
-    </Reference>
     <Reference Include="INIFileParser">
       <HintPath>..\packages\ini-parser.2.0.2\lib\INIFileParser.dll</HintPath>
     </Reference>
@@ -114,14 +111,6 @@
     <Compile Include="Engine\Components\Graphics\TextComponent.cs" />
     <Compile Include="Engine\Components\InlineComponent.cs" />
     <Compile Include="Engine\Components\Map\LayerComponent.cs" />
-    <Compile Include="Engine\Components\Physics\BodyComponent.cs" />
-    <Compile Include="Engine\Components\Physics\Shapes\BoundingBoxComponent.cs" />
-    <Compile Include="Engine\Components\Physics\Shapes\EllipseComponent.cs" />
-    <Compile Include="Engine\Components\Physics\Shapes\FixtureBaseComponent.cs" />
-    <Compile Include="Engine\Components\Physics\Shapes\PolygonComponent.cs" />
-    <Compile Include="Engine\Components\Physics\Shapes\PolylineComponent.cs" />
-    <Compile Include="Engine\Components\Physics\Shapes\RectangleComponent.cs" />
-    <Compile Include="Engine\Components\Physics\UpdateComponent.cs" />
     <Compile Include="Engine\Components\TransformComponent.cs" />
     <Compile Include="Engine\ConsoleViewer.cs" />
     <Compile Include="Engine\EngineCommands.cs" />
@@ -152,15 +141,9 @@
     <Compile Include="Engine\DebugHandler.cs" />
     <Compile Include="Engine\Extensions\ColorExtensions.cs" />
     <Compile Include="Engine\Extensions\MapExtensions.cs" />
-    <Compile Include="Engine\Extensions\VectorExtensions.cs" />
     <Compile Include="Engine\ParseException.cs" />
     <Compile Include="Engine\Scheduler\TaskInfo.cs" />
     <Compile Include="Engine\Scheduler\DiveScheduler.cs" />
-    <Compile Include="Engine\Templates\Physics\Shapes\BoundingBoxTemplate.cs" />
-    <Compile Include="Engine\Templates\Physics\Shapes\EllipseTemplate.cs" />
-    <Compile Include="Engine\Templates\Physics\Shapes\PolygonTemplate.cs" />
-    <Compile Include="Engine\Templates\Physics\Shapes\PolylineTemplate.cs" />
-    <Compile Include="Engine\Templates\Physics\Shapes\RectangleTemplate.cs" />
     <Compile Include="Entity\AbstractComponent.cs" />
     <Compile Include="Entity\Attributes\EntityComponent.cs" />
     <Compile Include="Entity\Attributes\EntityTemplate.cs" />
@@ -199,7 +182,9 @@
       <CustomToolNamespace>Dive.Script.Language</CustomToolNamespace>
     </Antlr4>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Engine\Templates\" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
       <Visible>False</Visible>
