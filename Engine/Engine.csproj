@@ -105,6 +105,7 @@
     <Compile Include="Engine\ConsoleViewer.cs" />
     <Compile Include="Engine\EngineCommands.cs" />
     <Compile Include="Engine\EngineScriptInterface.cs" />
+    <Compile Include="Engine\Templates\SpatialTemplate.cs" />
     <Compile Include="Entity\EntityCommands.cs" />
     <Compile Include="Script\Attributes\CommandDef.cs" />
     <Compile Include="Script\Arguments\BasicCommandArgument.cs" />
@@ -172,9 +173,7 @@
       <CustomToolNamespace>Dive.Script.Language</CustomToolNamespace>
     </Antlr4>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Engine\Templates\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
       <Visible>False</Visible>
