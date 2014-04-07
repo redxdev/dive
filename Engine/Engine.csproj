@@ -90,19 +90,10 @@
     <Compile Include="Assets\Loaders\FontLoader.cs" />
     <Compile Include="Assets\Loaders\ImageLoader.cs" />
     <Compile Include="Assets\Loaders\IniAssetLoader.cs" />
-    <Compile Include="Assets\Loaders\MapLoader.cs" />
     <Compile Include="Assets\Loaders\ScriptLoader.cs" />
     <Compile Include="Assets\Loaders\ShaderLoader.cs" />
     <Compile Include="Assets\Loaders\SoundBufferLoader.cs" />
     <Compile Include="Assets\Loaders\TextureLoader.cs" />
-    <Compile Include="Assets\Map\Layer.cs" />
-    <Compile Include="Assets\Map\TileLayer.cs" />
-    <Compile Include="Assets\Map\Map.cs" />
-    <Compile Include="Assets\Map\MapLoadException.cs" />
-    <Compile Include="Assets\Map\MapObject.cs" />
-    <Compile Include="Assets\Map\ObjectGroup.cs" />
-    <Compile Include="Assets\Map\Tile.cs" />
-    <Compile Include="Assets\Map\Tileset.cs" />
     <Compile Include="Engine\AbstractGameState.cs" />
     <Compile Include="Engine\Attributes\GameState.cs" />
     <Compile Include="Engine\Attributes\StartupGameState.cs" />
@@ -140,7 +131,6 @@
     <Compile Include="Script\Arguments\VariableCommandArgument.cs" />
     <Compile Include="Engine\DebugHandler.cs" />
     <Compile Include="Engine\Extensions\ColorExtensions.cs" />
-    <Compile Include="Engine\Extensions\MapExtensions.cs" />
     <Compile Include="Engine\ParseException.cs" />
     <Compile Include="Engine\Scheduler\TaskInfo.cs" />
     <Compile Include="Engine\Scheduler\DiveScheduler.cs" />
@@ -167,7 +157,7 @@
     <Compile Include="Assets\AssetLoaderException.cs" />
     <Compile Include="Assets\AssetLoadException.cs" />
     <Compile Include="Assets\Attributes\AssetLoader.cs" />
-    <Compile Include="Assets\IAssetLoader.cs" />
+    <Compile Include="Assets\Loaders\IAssetLoader.cs" />
     <Compile Include="Assets\AssetManager.cs" />
     <Compile Include="Assets\Loaders\TestAssetLoader.cs" />
     <Compile Include="Util\Logging\CWDFileAppender.cs" />

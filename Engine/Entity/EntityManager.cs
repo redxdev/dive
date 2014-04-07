@@ -222,37 +222,6 @@
         }
 
         /// <summary>
-        /// Builds an entity from properties.
-        /// </summary>
-        /// <param name="properties">The properties.</param>
-        /// <param name="entity">The entity.</param>
-        /// <returns>The entity built from properties.</returns>
-        public Entity BuildFromProperties(IDictionary<string, string> properties, Entity entity = null)
-        {
-            if (entity == null)
-            {
-                entity = this.CreateEntity();
-            }
-
-            if (properties.ContainsKey("components"))
-            {
-                string[] components = properties["components"].Split(',');
-                foreach (string componentName in components)
-                {
-                    IComponent component = this.CreateComponent(componentName);
-                    entity.AddComponent(component.GetType(), component);
-                }
-            }
-
-            foreach (IComponent component in entity.Components.Values)
-            {
-                component.BuildProperties(properties);
-            }
-
-            return entity;
-        }
-
-        /// <summary>
         /// Creates a component from its name.
         /// </summary>
         /// <param name="name">The name of the component, as specified by the <see cref="Attributes.EntityComponent"/> attribute.</param>

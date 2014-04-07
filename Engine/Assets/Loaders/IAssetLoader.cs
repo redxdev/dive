@@ -1,4 +1,4 @@
-﻿namespace Dive.Assets
+﻿namespace Dive.Assets.Loaders
 {
     using System;
     using System.Collections.Generic;
