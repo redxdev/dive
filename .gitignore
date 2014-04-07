@@ -21,7 +21,6 @@ syntax: glob
 *.lib
 *.sbr
 *.scc
-[Bb]in
 [Dd]ebug/**
 obj/
 [Rr]elease/**
@@ -32,7 +31,10 @@ _ReSharper*/
 *.[Pp]ublish.xml
 *.resharper
 packages/**
-Dist/bin/**.dll
+Dist/bin/Debug/**
+Dist/bin/Release/**
+Engine/bin/**
+Game/bin/**
 
 # For projects upgraded from VS2010
 [Bb]ackup/

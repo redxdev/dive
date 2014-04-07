@@ -9,8 +9,8 @@ Alpha notice
 Dive Engine is currently in alpha! That means that it is not production ready and it is not
 feature-complete! Don't use it expecting everything to work as planned.
 
-Dependency notice
------------------
+Dependencies
+------------
 
 Dive requires the following dependencies, which should automatically be installed by NuGet:
 
@@ -19,6 +19,12 @@ Dive requires the following dependencies, which should automatically be installe
 * ini-parser
 * antlr4
 * FarseerPhysics
+
+Projects
+--------
+
+The engine project contains the main engine executable code. The game project is a template for
+the game assembly.
 
 Licence
 =======

@@ -73,10 +73,8 @@
                 else
                 {
                     Log.Warn("Session ended with errors.");
-#if !DEBUG
                     Console.WriteLine("Press any key to continue...");
                     Console.ReadKey();
-#endif
                 }
             }
 #if !DEBUG

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Text;
@@ -646,23 +647,44 @@
             this.Window.Resized += this.OnWindowResized;
 
 #if DEBUG
-            string gameAssemblyPath = "bin/Debug/Game.dll";
+            string assemblyPath = "bin/Debug/";
 #else
-            string gameAssemblyPath = "bin/Release/Game.dll";
+            string assemblyPath = "bin/Release/";
 #endif
-            Log.Info("Loading game assembly " + gameAssemblyPath);
 
-            Assembly gameAssembly = this.AssetManager.Load<Assembly>(gameAssemblyPath);
-            if (gameAssembly == null)
+            string assemblyExtension = ".dll";
+
+            Log.Info("Loading assemblies");
+
+            try
             {
-                Log.Fatal("Unable to load game assembly");
+                using (StreamReader reader = new StreamReader(new FileStream("bin/assembly.cfg", FileMode.Open)))
+                {
+                    string line = null;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        if (string.IsNullOrWhiteSpace(line) || line[0] == '#')
+                        {
+                            continue;
+                        }
+
+                        string path = assemblyPath + line.Trim() + assemblyExtension;
+
+                        Assembly assembly = this.AssetManager.Load<Assembly>(path);
+                        this.ImportAssembly(assembly);
+
+                        Log.Info("Loaded assembly " + path);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Fatal("Unable to load assemblies", e);
                 Log.Fatal("Unable to initialize engine");
                 return false;
             }
 
-            this.ImportAssembly(gameAssembly);
-
-            Log.Info("Loaded game assembly");
+            Log.Info("Loaded assemblies");
 
             this.Input.Initialize();
             this.StateManager.Initialize();
