@@ -161,6 +161,7 @@
     <Compile Include="Assets\Loaders\TestAssetLoader.cs" />
     <Compile Include="Util\Logging\CWDFileAppender.cs" />
     <Compile Include="Util\Logging\ScriptingConsoleAppender.cs" />
+    <Compile Include="Util\MathHelper.cs" />
     <Compile Include="Util\TypeUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
