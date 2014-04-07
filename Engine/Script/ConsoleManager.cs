@@ -278,6 +278,7 @@
         protected virtual void SetupVariables()
         {
             this.RegisterVariable("null", new ImmutableConVar(null));
+            this.RegisterVariable("newline", new ImmutableConVar("\n"));
             this.RegisterVariable("s_version", new ImmutableConVar("1.0"));
         }
     }

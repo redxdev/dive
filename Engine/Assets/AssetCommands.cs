@@ -131,5 +131,23 @@
                 ConsoleManager.ConsoleLog.Info("unloaded");
             }
         }
+
+        [CommandDef(Name = "asset_list", Usage = "asset_list", Help = "List all assets")]
+        public static void List(ConsoleManager console, ExecutableCommand cmd)
+        {
+            if (cmd.Arguments.Count != 0)
+            {
+                throw new ArgumentException(string.Format("Wrong number of arguments for asset_list (expected 0, got {0})", cmd.Arguments.Count));
+            }
+
+            foreach (KeyValuePair<Type, Dictionary<string, WeakReference>> pair in GameEngine.Instance.AssetManager.Assets)
+            {
+                ConsoleManager.ConsoleLog.Info(pair.Key.FullName);
+                foreach (KeyValuePair<string, WeakReference> asset in pair.Value)
+                {
+                    ConsoleManager.ConsoleLog.Info((asset.Value.IsAlive ? "+" : "-") + asset.Key);
+                }
+            }
+        }
     }
 }

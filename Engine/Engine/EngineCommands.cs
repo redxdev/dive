@@ -119,12 +119,12 @@
         /// <param name="console">The console.</param>
         /// <param name="cmd">The command.</param>
         /// <exception cref="System.ArgumentException">Wrong number of arguments.</exception>
-        [CommandDef(Name = "canceltasks", Usage = "cleartasks", Help = "Clear all tasks from the scheduler !!! THIS IS DANGEROUS !!!")]
+        [CommandDef(Name = "canceltasks", Usage = "canceltasks", Help = "Clear all tasks from the scheduler !!! THIS IS DANGEROUS !!!")]
         public static void CancelTasks(ConsoleManager console, ExecutableCommand cmd)
         {
             if (cmd.Arguments.Count != 0)
             {
-                throw new ArgumentException(string.Format("Wrong number of arguments for cleartasks (expected 0, got {0})", cmd.Arguments.Count));
+                throw new ArgumentException(string.Format("Wrong number of arguments for canceltasks (expected 0, got {0})", cmd.Arguments.Count));
             }
 
             GameEngine.Instance.Scheduler.Tasks.Clear();
