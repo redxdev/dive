@@ -12,6 +12,7 @@
     using Dive.Engine.Scheduler;
     using Dive.Entity;
     using Dive.Script;
+    using Dive.Util;
     using log4net;
     using SFML.Graphics;
 
@@ -677,7 +678,7 @@
 
             if (debugEnabled)
             {
-                Type debugHandlerType = Type.GetType(this.Configuration["debug"]["handler"]);
+                Type debugHandlerType = TypeUtilities.GetGlobalType(this.Configuration["debug"]["handler"]);
                 if (debugHandlerType == null)
                 {
                     Log.Fatal("Configuration: Unknown debug handler type \"" + this.Configuration["debug"]["handler"] + "\"");
