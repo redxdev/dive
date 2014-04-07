@@ -233,6 +233,11 @@ namespace Dive.Engine
         /// <param name="color">The color.</param>
         public void Print(string input, Color color)
         {
+            if (GameEngine.Instance.Window == null)
+            {
+                return;
+            }
+
             int maxLineLength = (int)(GameEngine.Instance.Window.Size.X / 8.1f);
 
             if (input.Length > maxLineLength)
