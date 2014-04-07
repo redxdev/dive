@@ -101,7 +101,6 @@
     <Compile Include="Engine\Components\Graphics\SpriteComponent.cs" />
     <Compile Include="Engine\Components\Graphics\TextComponent.cs" />
     <Compile Include="Engine\Components\InlineComponent.cs" />
-    <Compile Include="Engine\Components\Map\LayerComponent.cs" />
     <Compile Include="Engine\Components\TransformComponent.cs" />
     <Compile Include="Engine\ConsoleViewer.cs" />
     <Compile Include="Engine\EngineCommands.cs" />
