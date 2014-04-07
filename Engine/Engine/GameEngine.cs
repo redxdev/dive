@@ -623,11 +623,6 @@
 
             this.Window.SetVerticalSyncEnabled(vsync);
 
-            View view = this.Window.GetView();
-            view.Center = new Vector2f(0, 0);
-            view.Size = new Vector2f(resW, resH);
-            this.Window.SetView(view);
-
             this.Window.Closed += this.OnWindowClosed;
 
 #if DEBUG
