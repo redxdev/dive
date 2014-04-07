@@ -431,7 +431,7 @@
         /// </exception>
         public void NotifyNameChange(Entity entity, string newName)
         {
-            if (this.entityNames.ContainsKey(newName))
+            if (!string.IsNullOrWhiteSpace(newName) && this.entityNames.ContainsKey(newName))
             {
                 throw new ArgumentException("An entity with the specified name already exists");
             }
