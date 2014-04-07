@@ -8,6 +8,7 @@ namespace Dive.Engine
     using System.Text;
     using System.Threading.Tasks;
     using Dive.Script;
+    using Dive.Util;
     using SFML.Graphics;
     using SFML.Window;
 
@@ -136,6 +137,15 @@ namespace Dive.Engine
                         this.lastInput = this.lastInput.Next;
                     }
 
+                    if (this.currentPos == this.currentInput.Length)
+                    {
+                        this.currentPos = this.lastInput.Value.Length;
+                    }
+                    else
+                    {
+                        this.currentPos = MathHelper.Clamp(this.currentPos, 0, this.lastInput.Value.Length);
+                    }
+
                     this.currentInput = this.lastInput.Value;
                     break;
 
@@ -152,6 +162,15 @@ namespace Dive.Engine
                             this.currentInput = string.Empty;
                             break;
                         }
+                    }
+
+                    if (this.currentPos == this.currentInput.Length)
+                    {
+                        this.currentPos = this.lastInput.Value.Length;
+                    }
+                    else
+                    {
+                        this.currentPos = MathHelper.Clamp(this.currentPos, 0, this.lastInput.Value.Length);
                     }
 
                     this.currentInput = this.lastInput.Value;
@@ -323,7 +342,7 @@ namespace Dive.Engine
                 return;
             }
 
-            if (this.currentPos >= this.currentInput.Length)
+            if (this.currentPos > this.currentInput.Length)
             {
                 this.currentPos = this.currentInput.Length;
             }
