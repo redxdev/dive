@@ -42,9 +42,8 @@ namespace Dive.Engine
         private bool blinkOn = true;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConsoleViewer"/> class.
+        /// Initializes a new instance of the <see cref="ConsoleViewer" /> class.
         /// </summary>
-        /// <param name="engine">The engine.</param>
         public ConsoleViewer()
         {
             this.consoleFont = GameEngine.Instance.AssetManager.Load<Font>("content/fonts/DroidSansMono.ttf");

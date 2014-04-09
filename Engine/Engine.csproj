@@ -96,6 +96,7 @@
     <Compile Include="Assets\Loaders\TextureLoader.cs" />
     <Compile Include="Engine\AbstractGameState.cs" />
     <Compile Include="Engine\Attributes\GameState.cs" />
+    <Compile Include="Engine\Attributes\InitializeOnLoad.cs" />
     <Compile Include="Engine\Attributes\StartupGameState.cs" />
     <Compile Include="Engine\ColorConstants.cs" />
     <Compile Include="Engine\Components\Graphics\SpriteComponent.cs" />

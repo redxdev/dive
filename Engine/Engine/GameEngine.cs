@@ -8,14 +8,15 @@
     using System.Reflection;
     using System.Text;
     using System.Threading.Tasks;
+    using Dive.Engine.Attributes;
     using Dive.Engine.Extensions;
     using Dive.Engine.Scheduler;
     using Dive.Entity;
     using Dive.Script;
     using Dive.Util;
     using log4net;
-    using SFML.Window;
     using SFML.Graphics;
+    using SFML.Window;
 
     /// <summary>
     /// Handles the main game loop.
@@ -88,6 +89,12 @@
             Log.Debug("Initialized Engine");
         }
 
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <value>
+        /// The instance.
+        /// </value>
         public static GameEngine Instance
         {
             get
@@ -548,12 +555,41 @@
             }
         }
 
+        /// <summary>
+        /// Registers the assembly with relevant managers.
+        /// </summary>
+        /// <param name="assembly">The assembly.</param>
         public void ImportAssembly(Assembly assembly)
         {
             this.Console.ImportAssembly(assembly);
             this.EntityManager.ImportAssembly(assembly);
             this.AssetManager.ImportAssembly(assembly);
             this.StateManager.ImportAssembly(assembly);
+
+            foreach (Type type in assembly.GetTypes())
+            {
+                foreach (MethodInfo method in type.GetMethods())
+                {
+                    if (method.GetCustomAttributes(typeof(InitializeOnLoad), false).Any())
+                    {
+                        if (method.IsStatic)
+                        {
+                            try
+                            {
+                                method.Invoke(null, null);
+                            }
+                            catch (Exception e)
+                            {
+                                Log.Warn("Unable to invoke InitializeOnLoad method \"" + type.FullName + "." + method.Name + "\"", e);
+                            }
+                        }
+                        else
+                        {
+                            Log.Warn("Unable to invoke InitializeOnLoad method \"" + type.FullName + "." + method.Name + "\" (method not static)");
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>

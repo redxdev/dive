@@ -132,6 +132,12 @@
             }
         }
 
+        /// <summary>
+        /// Lists all assets known by the asset manager.
+        /// </summary>
+        /// <param name="console">The console.</param>
+        /// <param name="cmd">The command.</param>
+        /// <exception cref="System.ArgumentException">Wrong number of arguments.</exception>
         [CommandDef(Name = "asset_list", Usage = "asset_list", Help = "List all assets")]
         public static void List(ConsoleManager console, ExecutableCommand cmd)
         {

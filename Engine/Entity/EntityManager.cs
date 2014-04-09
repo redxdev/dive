@@ -29,9 +29,8 @@
         private Dictionary<string, ITemplate> templateRegistry = null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntityManager"/> class.
+        /// Initializes a new instance of the <see cref="EntityManager" /> class.
         /// </summary>
-        /// <param name="engine">The engine.</param>
         public EntityManager()
         {
             this.entities = new SortedDictionary<long, Entity>();
@@ -96,6 +95,10 @@
             }
         }
 
+        /// <summary>
+        /// Registers entity component and template types with the entity manager.
+        /// </summary>
+        /// <param name="assembly">The assembly.</param>
         public void ImportAssembly(Assembly assembly)
         {
             foreach (Type type in assembly.GetTypes())

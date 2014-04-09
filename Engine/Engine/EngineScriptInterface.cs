@@ -16,7 +16,6 @@
         /// <summary>
         /// Build the console variables for interfacing the engine and the console.
         /// </summary>
-        /// <param name="engine">The engine.</param>
         /// <param name="console">The console.</param>
         public static void Build(ConsoleManager console)
         {

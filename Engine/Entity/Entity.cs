@@ -21,8 +21,6 @@
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The entity name or null.</param>
-        /// <param name="engine">The engine.</param>
-        /// <param name="manager">The entity manager.</param>
         public Entity(long id, string name)
         {
             this.Id = id;
