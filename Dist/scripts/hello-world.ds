@@ -3,8 +3,8 @@
 # Entity creation
 entity_create text
 entity_disable @text
-entity_attach(@text,Engine.Transform)
-entity_attach(@text,Engine.Graphics.Text)
+entity_attach(@text,Transform)
+entity_attach(@text,TextRenderer)
 
 # Entity properties
 entity_prop_init

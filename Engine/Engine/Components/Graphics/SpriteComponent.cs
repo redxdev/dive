@@ -12,7 +12,7 @@
     /// <summary>
     /// Component for sprite rendering.
     /// </summary>
-    [EntityComponent(Name = "Engine.Graphics.Sprite", ExecutionLayer = EngineLayers.DrawGame)]
+    [EntityComponent(Name = "Sprite", ExecutionLayer = EngineLayers.DrawGame)]
     public class SpriteComponent : AbstractComponent
     {
         private ComponentLookup<TransformComponent> transform = null;

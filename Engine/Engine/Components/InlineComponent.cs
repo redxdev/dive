@@ -12,7 +12,7 @@
     /// Used to create inline components with lambda expressions, in case you don't want a reusable component. Due to the way the current entity framework is
     /// designed, you can only have a single InlineComponent on an Entity at a time.
     /// </summary>
-    [EntityComponent(Name = "Engine.InlineComponent", ExecutionLayer = EngineLayers.UpdateGame)]
+    [EntityComponent(Name = "Inline", ExecutionLayer = EngineLayers.UpdateGame)]
     public class InlineComponent : AbstractComponent
     {
         private Action<InlineComponent> updateAction = null;

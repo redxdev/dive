@@ -13,7 +13,7 @@
     /// <summary>
     /// Component for holding tranforms (position and rotation).
     /// </summary>
-    [EntityComponent(Name = "Engine.Transform")]
+    [EntityComponent(Name = "Transform")]
     public class TransformComponent : AbstractComponent
     {
         private Vector2f position = new Vector2f();

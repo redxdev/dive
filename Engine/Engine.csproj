@@ -100,7 +100,7 @@
     <Compile Include="Engine\Attributes\StartupGameState.cs" />
     <Compile Include="Engine\ColorConstants.cs" />
     <Compile Include="Engine\Components\Graphics\SpriteComponent.cs" />
-    <Compile Include="Engine\Components\Graphics\TextComponent.cs" />
+    <Compile Include="Engine\Components\Graphics\TextRendererComponent.cs" />
     <Compile Include="Engine\Components\InlineComponent.cs" />
     <Compile Include="Engine\Components\TransformComponent.cs" />
     <Compile Include="Engine\ConsoleViewer.cs" />
