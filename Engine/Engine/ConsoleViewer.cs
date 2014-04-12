@@ -182,6 +182,22 @@ namespace Dive.Engine
                     }
 
                     break;
+
+                case Keyboard.Key.PageUp:
+                    this.bufferPos++;
+                    if (this.bufferPos > this.consoleBuffer.Count)
+                    {
+                        this.bufferPos = this.consoleBuffer.Count;
+                    }
+                    break;
+
+                case Keyboard.Key.PageDown:
+                    this.bufferPos--;
+                    if (this.bufferPos < 0)
+                    {
+                        this.bufferPos = 0;
+                    }
+                    break;
             }
         }
 
