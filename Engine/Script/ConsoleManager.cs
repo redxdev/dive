@@ -31,10 +31,8 @@
         private static readonly ILog Log = LogManager.GetLogger(typeof(ConsoleManager));
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConsoleManager"/> class.
+        /// Initializes a new instance of the <see cref="ConsoleManager" /> class.
         /// </summary>
-        /// <param name="engine">The engine.</param>
-        /// <param name="autoLoad">If set to <c>true</c> [automatic load].</param>
         public ConsoleManager()
         {
             this.Variables = new Dictionary<string, IConVar>();

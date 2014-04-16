@@ -28,9 +28,8 @@
         private Dictionary<string, InputMapping> actionMappings;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InputManager"/> class.
+        /// Initializes a new instance of the <see cref="InputManager" /> class.
         /// </summary>
-        /// <param name="engine">The engine.</param>
         public InputManager()
         {
             this.inputMappings = new Dictionary<InputMapping, string>();

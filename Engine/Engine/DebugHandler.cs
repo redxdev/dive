@@ -42,7 +42,6 @@
         /// <summary>
         /// Initializes this debug handler.
         /// </summary>
-        /// <param name="engine">The engine.</param>
         public virtual void Initialize()
         {
             bool drawOverlay = false;
@@ -57,7 +56,6 @@
         /// Draws debug information. This is always called after all engine drawing routines, and as such draw calls will appear on top of
         /// all objects on the screen. This should not use engine drawing methods, and instead directly draw to the engine.Window object.
         /// </summary>
-        /// <param name="engine">The engine.</param>
         public virtual void Draw()
         {
             if (this.DrawOverlay)

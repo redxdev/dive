@@ -20,7 +20,17 @@
         /// <returns>A list of ExecutableCommands.</returns>
         public static CommandList ParseString(string input)
         {
-            return Parse(new AntlrInputStream(input));
+            try
+            {
+                return Parse(new AntlrInputStream(input));
+            }
+            catch (ParseException)
+            {
+                return new CommandList()
+                {
+                    Commands = new List<ExecutableCommand>()
+                };
+            }
         }
 
         /// <summary>
@@ -30,7 +40,17 @@
         /// <returns>A list of ExecutableCommands.</returns>
         public static CommandList ParseFile(string filename)
         {
-            return Parse(new AntlrFileStream(filename));
+            try
+            {
+                return Parse(new AntlrFileStream(filename));
+            }
+            catch (ParseException)
+            {
+                return new CommandList()
+                {
+                    Commands = new List<ExecutableCommand>()
+                };
+            }
         }
 
         /// <summary>
@@ -44,9 +64,15 @@
             CommonTokenStream tokenStream = new CommonTokenStream(lexer);
 
             DScriptParser parser = new DScriptParser(tokenStream);
-            parser.ErrorHandler = new BailErrorStrategy();
+            parser.RemoveErrorListeners();
+            parser.AddErrorListener(new LogErrorListener());
 
             List<ExecutableCommand> commands = parser.compileUnit().finalCommands;
+
+            if (parser.NumberOfSyntaxErrors > 0)
+            {
+                throw new ParseException("Parser finished with syntax errors");
+            }
 
             return new CommandList(commands);
         }

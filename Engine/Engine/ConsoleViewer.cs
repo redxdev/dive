@@ -42,9 +42,8 @@ namespace Dive.Engine
         private bool blinkOn = true;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConsoleViewer"/> class.
+        /// Initializes a new instance of the <see cref="ConsoleViewer" /> class.
         /// </summary>
-        /// <param name="engine">The engine.</param>
         public ConsoleViewer()
         {
             this.consoleFont = GameEngine.Instance.AssetManager.Load<Font>("content/fonts/DroidSansMono.ttf");
@@ -182,6 +181,22 @@ namespace Dive.Engine
                         this.currentInput = this.currentInput.Remove(this.currentPos, 1);
                     }
 
+                    break;
+
+                case Keyboard.Key.PageUp:
+                    this.bufferPos++;
+                    if (this.bufferPos > this.consoleBuffer.Count)
+                    {
+                        this.bufferPos = this.consoleBuffer.Count;
+                    }
+                    break;
+
+                case Keyboard.Key.PageDown:
+                    this.bufferPos--;
+                    if (this.bufferPos < 0)
+                    {
+                        this.bufferPos = 0;
+                    }
                     break;
             }
         }

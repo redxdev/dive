@@ -96,10 +96,11 @@
     <Compile Include="Assets\Loaders\TextureLoader.cs" />
     <Compile Include="Engine\AbstractGameState.cs" />
     <Compile Include="Engine\Attributes\GameState.cs" />
+    <Compile Include="Engine\Attributes\InitializeOnLoad.cs" />
     <Compile Include="Engine\Attributes\StartupGameState.cs" />
     <Compile Include="Engine\ColorConstants.cs" />
     <Compile Include="Engine\Components\Graphics\SpriteComponent.cs" />
-    <Compile Include="Engine\Components\Graphics\TextComponent.cs" />
+    <Compile Include="Engine\Components\Graphics\TextRendererComponent.cs" />
     <Compile Include="Engine\Components\InlineComponent.cs" />
     <Compile Include="Engine\Components\TransformComponent.cs" />
     <Compile Include="Engine\ConsoleViewer.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Script\ExecutableCommand.cs" />
     <Compile Include="Script\ConVars\IConVar.cs" />
     <Compile Include="Script\ConVars\ImmutableConVar.cs" />
+    <Compile Include="Script\LogErrorListener.cs" />
     <Compile Include="Script\Language\DScript.g4.lexer.cs">
       <DependentUpon>DScript.g4</DependentUpon>
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
@@ -125,6 +127,7 @@
     <Compile Include="Script\Language\DScript.g4.parser.cs">
       <DependentUpon>DScript.g4</DependentUpon>
     </Compile>
+    <Compile Include="Script\ParseException.cs" />
     <Compile Include="Script\ScriptUtilities.cs" />
     <Compile Include="Script\ConVars\BasicConVar.cs" />
     <Compile Include="Script\UtilityCommands.cs" />

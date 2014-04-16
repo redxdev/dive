@@ -25,7 +25,6 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="AssetManager" /> class.
         /// </summary>
-        /// <param name="autoAddAssetLoaders">If true, automatically register all asset loaders that have the <see cref="Dive.Util.Assets.Attributes.AssetLoader"/> attribute.</param>
         public AssetManager()
         {
             Log.Debug("Initialized AssetManager");

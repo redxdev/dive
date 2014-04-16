@@ -13,15 +13,15 @@
     /// <summary>
     /// Component for text rendering.
     /// </summary>
-    [EntityComponent(Name = "Engine.Graphics.Text", ExecutionLayer = EngineLayers.DrawGame)]
-    public class TextComponent : AbstractComponent
+    [EntityComponent(Name = "TextRenderer", ExecutionLayer = EngineLayers.DrawGame)]
+    public class TextRendererComponent : AbstractComponent
     {
         private ComponentLookup<TransformComponent> transform = null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextComponent"/> class.
+        /// Initializes a new instance of the <see cref="TextRendererComponent"/> class.
         /// </summary>
-        public TextComponent()
+        public TextRendererComponent()
         {
             this.Drawable = new Text();
         }

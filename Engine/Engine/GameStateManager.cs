@@ -20,10 +20,8 @@
         private IGameState currentState = null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GameStateManager"/> class.
+        /// Initializes a new instance of the <see cref="GameStateManager" /> class.
         /// </summary>
-        /// <param name="engine">The engine.</param>
-        /// <param name="autoAddGameStates">Whether to automatically add <see cref="IGameState"/>s with the <see cref="Dive.Engine.Attributes.GameState"/> attribute.</param>
         public GameStateManager()
         {
             this.gameStates = new Dictionary<Type, IGameState>();

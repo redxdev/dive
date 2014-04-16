@@ -26,7 +26,6 @@
         /// <summary>
         /// Called when the <see cref="IGameState" /> is first added to the <see cref="GameStateManager" />.
         /// </summary>
-        /// <param name="engine">The engine.</param>
         public virtual void Initialize()
         {
         }
