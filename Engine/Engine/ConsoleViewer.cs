@@ -189,6 +189,7 @@ namespace Dive.Engine
                     {
                         this.bufferPos = this.consoleBuffer.Count;
                     }
+
                     break;
 
                 case Keyboard.Key.PageDown:
@@ -197,6 +198,7 @@ namespace Dive.Engine
                     {
                         this.bufferPos = 0;
                     }
+
                     break;
             }
         }

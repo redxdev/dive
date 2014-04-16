@@ -39,12 +39,12 @@
         }
 
         /// <summary>
-        /// Gets or sets the draw layer.
+        /// Gets or sets the draw depth.
         /// </summary>
         /// <value>
-        /// The draw layer.
+        /// The draw depth.
         /// </value>
-        public int DrawLayer
+        public int Depth
         {
             get;
             set;
@@ -66,7 +66,7 @@
             this.Drawable.Position = this.transform.Component.Position;
             this.Drawable.Rotation = this.transform.Component.Rotation;
 
-            GameEngine.Instance.AddToRenderQueue(this.Drawable, this.DrawLayer);
+            GameEngine.Instance.RenderManager.AddToRenderQueue(this.Drawable, this.Depth);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@
         {
             base.BuildProperties(properties);
 
-            this.BuildProperty<int>(properties, "Text.DrawLayer", value => this.DrawLayer = value);
+            this.BuildProperty<int>(properties, "Text.Depth", value => this.Depth = value);
             this.BuildProperty<string>(properties, "Text.String", value => this.Drawable.DisplayedString = value);
             this.BuildProperty<string>(
                 properties,

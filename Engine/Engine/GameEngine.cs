@@ -43,7 +43,7 @@
 
         private InputManager input = null;
 
-        private List<EngineDrawable> drawList = new List<EngineDrawable>();
+        private RenderManager renderManager = null;
 
         private DiveScheduler scheduler = new DiveScheduler();
 
@@ -66,7 +66,8 @@
             Log.Debug("Initializing Engine");
 
             this.ClearColor = ColorConstants.CornflowerBlue;
-            this.LargestDrawLayer = int.MinValue;
+
+            this.renderManager = new RenderManager();
 
             this.console = new ConsoleManager();
             this.Console.ImportAssembly(Assembly.GetExecutingAssembly());
@@ -101,18 +102,6 @@
             {
                 return instance;
             }
-        }
-
-        /// <summary>
-        /// Gets or sets the largest draw layer.
-        /// </summary>
-        /// <value>
-        /// The largest draw layer.
-        /// </value>
-        public int LargestDrawLayer
-        {
-            get;
-            protected set;
         }
 
         /// <summary>
@@ -236,6 +225,20 @@
             get
             {
                 return this.consoleViewer;
+            }
+        }
+
+        /// <summary>
+        /// Gets the render manager.
+        /// </summary>
+        /// <value>
+        /// The render manager.
+        /// </value>
+        public RenderManager RenderManager
+        {
+            get
+            {
+                return this.renderManager;
             }
         }
 
@@ -529,33 +532,6 @@
         }
 
         /// <summary>
-        /// Adds to render queue.
-        /// </summary>
-        /// <param name="drawable">The drawable.</param>
-        public void AddToRenderQueue(Drawable drawable)
-        {
-            this.AddToRenderQueue(drawable, this.LargestDrawLayer + 1);
-        }
-
-        /// <summary>
-        /// Adds to render queue.
-        /// </summary>
-        /// <param name="drawable">The drawable.</param>
-        /// <param name="layer">The layer.</param>
-        public void AddToRenderQueue(Drawable drawable, int layer)
-        {
-            this.drawList.Add(new EngineDrawable()
-                {
-                    Drawable = drawable,
-                    Layer = layer
-                });
-            if (this.LargestDrawLayer < layer)
-            {
-                this.LargestDrawLayer = layer;
-            }
-        }
-
-        /// <summary>
         /// Registers the assembly with relevant managers.
         /// </summary>
         /// <param name="assembly">The assembly.</param>
@@ -788,14 +764,7 @@
             this.EntityManager.Draw();
             this.StateManager.Draw();
 
-            this.drawList.Sort();
-            foreach (EngineDrawable drawable in this.drawList)
-            {
-                this.Window.Draw(drawable.Drawable);
-            }
-
-            this.LargestDrawLayer = int.MinValue;
-            this.drawList.Clear();
+            this.RenderManager.Draw();
 
             this.ConsoleViewer.Draw();
 

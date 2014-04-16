@@ -106,6 +106,7 @@
     <Compile Include="Engine\ConsoleViewer.cs" />
     <Compile Include="Engine\EngineCommands.cs" />
     <Compile Include="Engine\EngineScriptInterface.cs" />
+    <Compile Include="Engine\RenderManager.cs" />
     <Compile Include="Engine\Templates\SpatialTemplate.cs" />
     <Compile Include="Entity\EntityCommands.cs" />
     <Compile Include="Script\Attributes\CommandDef.cs" />
