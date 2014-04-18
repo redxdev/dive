@@ -61,7 +61,7 @@
         {
             if (cmd.Arguments.Count != 2)
             {
-                throw new ArgumentException(string.Format("Wrong number of arguments for asset_load (expected 2, got {0})", cmd.Arguments.Count));
+                throw new ArgumentException(string.Format("Wrong number of arguments for asset_reload (expected 2, got {0})", cmd.Arguments.Count));
             }
 
             string typeName = cmd.Arguments[0].Value;
