@@ -61,6 +61,7 @@
         public static CommandList Parse(ICharStream input)
         {
             DScriptLexer lexer = new DScriptLexer(input);
+
             CommonTokenStream tokenStream = new CommonTokenStream(lexer);
 
             DScriptParser parser = new DScriptParser(tokenStream);
