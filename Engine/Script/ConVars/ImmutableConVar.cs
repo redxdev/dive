@@ -11,7 +11,7 @@
     /// </summary>
     public class ImmutableConVar : IConVar
     {
-        private string value = null;
+        private readonly string value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ImmutableConVar"/> class.
