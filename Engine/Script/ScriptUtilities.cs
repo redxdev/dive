@@ -67,7 +67,7 @@
             parser.RemoveErrorListeners();
             parser.AddErrorListener(new LogErrorListener());
 
-            List<ExecutableCommand> commands = parser.compileUnit().finalCommands;
+            List<ExecutableCommand> commands = parser.compileUnit().finalCommands ?? new List<ExecutableCommand>();
 
             if (parser.NumberOfSyntaxErrors > 0)
             {
